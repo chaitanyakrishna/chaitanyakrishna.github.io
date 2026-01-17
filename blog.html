@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Blog | Chaitanya Krishna</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cybersecurity notes and articles by Chaitanya Krishna.">
+  <meta name="site-base" content="https://chaitanyakrishna.com">
+
+  <link rel="shortcut icon" href="images/favicon.ico">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <!-- Icon -->
+  <link href="css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+  <!-- Base Styles -->
+  <link href="css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
+  <!-- Monochrome Theme -->
+  <link href="css/colors/monochrome.css" rel="stylesheet" id="color-opt">
+
+  <!-- Code highlight -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-light.min.css">
+
+  <style>
+    .blog-shell { padding: 110px 0 80px; }
+    .blog-title { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.02em; }
+
+    /* Blog page navbar: avoid translucent blur artifacts while scrolling */
+    .blog-page .navbar {
+      background: rgba(255, 255, 255, 0.98) !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      border-bottom: 1px solid var(--border-color) !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    }
+    .archive-title { font-weight: 800; letter-spacing: -0.01em; margin-bottom: 10px; font-size: 1.05rem; }
+    .archive-year { margin: 12px 0 8px; font-weight: 800; color: var(--text-primary); font-size: 0.92rem; }
+    .post-link { display: block; padding: 9px 10px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-card); text-decoration: none; margin-bottom: 8px; transition: transform .2s ease, border-color .2s ease; }
+    .post-link:hover { transform: translateY(-1px); border-color: var(--border-light); }
+    .post-link.active { border-color: #000; }
+    .post-link-title {
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.92rem;
+      line-height: 1.25;
+      display: -webkit-box;
+      line-clamp: 2;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .post-link-meta { color: var(--text-muted); font-size: 0.78rem; margin-top: 3px; }
+
+    .archive-panel { position: sticky; top: 96px; }
+
+    .post-wrap { border: 1px solid var(--border-color); background: #fff; border-radius: 16px; padding: 28px; }
+    .post-meta { color: var(--text-muted); font-size: 0.9rem; margin-top: 6px; }
+
+    .share-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .share-label { color: var(--text-muted); font-size: 0.9rem; }
+    .share-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-primary); text-decoration: none; transition: transform .2s ease, border-color .2s ease; }
+    .share-btn:hover { transform: translateY(-1px); border-color: var(--border-light); }
+    .share-btn i { font-size: 1.05rem; }
+
+    .disclaimer { margin-top: 10px; color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+    .prose h1, .prose h2, .prose h3 { margin-top: 1.6rem; margin-bottom: 0.75rem; }
+    .prose p, .prose li { color: var(--text-secondary); line-height: 1.8; font-size: 1.02rem; }
+    .prose hr { border-top: 1px solid var(--border-color); margin: 1.5rem 0; }
+
+    /* Code blocks (boxed + copy button) */
+    .prose pre {
+      position: relative;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 18px 48px 16px 16px;
+      overflow: auto;
+    }
+    .prose code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .prose pre code { font-size: 0.92rem; }
+    .code-copy {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: transform .2s ease, border-color .2s ease, opacity .2s ease;
+    }
+    .code-copy:hover { transform: translateY(-1px); border-color: var(--border-light); }
+    .code-copy:active { transform: translateY(0px); opacity: 0.9; }
+    .code-copy i { font-size: 1.05rem; }
+    .prose code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+    .prose table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    .prose th, .prose td { border: 1px solid var(--border-color); padding: 10px 12px; }
+    .prose th { background: #f9fafb; text-align: left; }
+
+    @media (max-width: 991px) {
+      .post-wrap { padding: 20px; }
+    }
+  </style>
+</head>
+
+<body class="blog-page">
+  <!-- Navbar Start -->
+  <nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-custom navbar-light sticky">
+    <div class="container-fluid px-3 px-md-4 px-xxl-5">
+      <a class="navbar-brand" href="index.html"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span data-feather="menu" class="fea icon-md"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul id="navbar-navlist" class="navbar-nav navbar-nav-link mx-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://github.com/chaitanyakrishna/" target="_blank">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+        </ul>
+
+        <ul class="list-unstyled mb-0 mt-2 mt-sm-0 social-icon">
+          <li class="list-inline-item"><a href="https://www.linkedin.com/in/chaitanyakrishnaa/" target="_blank"><i class="mdi mdi-linkedin"></i></a></li>
+          <li class="list-inline-item"><a href="https://github.com/chaitanyakrishna" target="_blank"><i class="mdi mdi-github"></i></a></li>
+          <li class="list-inline-item"><a href="https://twitter.com/anantharapu" target="_blank"><i class="mdi mdi-twitter"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar End -->
+
+  <section class="blog-shell">
+    <div class="container-fluid px-3 px-md-4 px-xxl-5">
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="blog-title">Blog</div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <div class="post-wrap">
+            <div id="post-title" style="font-size:1.6rem; font-weight:800; letter-spacing:-0.01em;">Loading…</div>
+            <div id="post-meta" class="post-meta"></div>
+            <div id="share-bar" class="share-bar" aria-label="Share this article">
+              <span class="share-label">Share:</span>
+              <a id="share-linkedin" class="share-btn" href="#" target="_blank" rel="noopener noreferrer">
+                <i class="mdi mdi-linkedin"></i><span>LinkedIn</span>
+              </a>
+              <a id="share-twitter" class="share-btn" href="#" target="_blank" rel="noopener noreferrer">
+                <i class="mdi mdi-twitter"></i><span>Twitter</span>
+              </a>
+              <a id="share-facebook" class="share-btn" href="#" target="_blank" rel="noopener noreferrer">
+                <i class="mdi mdi-facebook"></i><span>Facebook</span>
+              </a>
+            </div>
+            <div class="disclaimer">
+              Disclaimer: These articles reflect my personal views and experience only. They do not represent the views of my past, present, or future employers.
+            </div>
+            <hr>
+            <div id="post-content" class="prose"></div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="archive-panel">
+            <div class="archive-title">Archive</div>
+            <div id="post-list" aria-label="Post archive"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- javascript -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/feather.min.js"></script>
+  <script>
+    if (window.feather) window.feather.replace();
+  </script>
+
+  <script>
+    // Minimal sticky behavior for this page (without pulling in app.js)
+    (function () {
+      const navbar = document.getElementById('navbar');
+      if (!navbar) return;
+      function onScroll() {
+        if (window.scrollY >= 50) navbar.classList.add('nav-sticky');
+        else navbar.classList.remove('nav-sticky');
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
+
+  <!-- Markdown + sanitize + highlight -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked-highlight/lib/index.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.8/dist/purify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/common.min.js"></script>
+
+    <!-- Inline posts index + content (avoids fetch() when opened via file://) -->
+    <script type="application/json" id="posts-json">[
+    {
+    "slug": "importance-of-osint",
+    "title": "The Importance of OSINT in Modern Cybersecurity",
+    "published": "2026-01-17",
+    "tags": ["OSINT", "Cybersecurity", "Threat Intelligence", "Security Operations"],
+    "summary": "OSINT is a discipline that turns public information into security decisions. This article covers practical workflows, validation, ethics, and defensive examples you can automate.",
+    "file": "blog/posts/importance-of-osint.md"
+    }
+  ]</script>
+
+    <script type="text/markdown" id="post-importance-of-osint"># The Importance of OSINT in Modern Cybersecurity
+
+  **Published:** January 17, 2026  
+  **Author:** Chaitanya Krishna  
+  **Tags:** OSINT, Cybersecurity, Threat Intelligence, Security Operations
+
+  ---
+
+  Open Source Intelligence (OSINT) is the discipline of turning public information into actionable security outcomes. When done well, OSINT helps you answer hard questions quickly:
+
+  - What does the internet already know about us?
+  - What assets are exposed today that weren’t exposed yesterday?
+  - What is the earliest signal of a brand‑impersonation or phishing campaign?
+  - What does an incident look like *from the outside*?
+
+  In security operations and threat intelligence, those answers are often the difference between **early containment** and **late-stage damage control**.
+
+  > Note: Everything in this post is intended for defensive use and authorized security work. Stay within your organization’s policies and applicable laws.
+
+  ## What OSINT Really Means (Beyond “Google Dorking”)
+
+  OSINT is not a tool. It’s a workflow:
+
+  1. **Define the question** (what decision are we trying to make?)
+  2. **Collect** from public sources (the “what”)
+  3. **Validate** (the “is it true?”)
+  4. **Contextualize** (the “so what?”)
+  5. **Act** (the “now what?”)
+
+  The most common failure mode is collecting too much data and producing too little clarity. The best OSINT is simple, verified, and tied to a concrete action.
+
+  ## Where OSINT Helps the Most
+
+  ### 1) Attack Surface Discovery (Know What You Own)
+
+  Most organizations underestimate their external footprint. OSINT helps you inventory what’s visible:
+
+  - subdomains and certificate transparency footprints
+  - cloud storage endpoints and public buckets
+  - forgotten apps, staging environments, and legacy portals
+  - leaked internal URLs in documentation, job posts, or repositories
+
+  Here’s a practical example that defenders can run against **their own domains** to spot subdomains from certificate transparency.
+
+  ```python
+  """Enumerate subdomains from Certificate Transparency (defensive use).
+
+  Use only for domains you own or are explicitly authorized to test.
+  """
+
+  from __future__ import annotations
+
+  import json
+  import time
+  from typing import Iterable
+
+  import requests
+
+
+  def ct_subdomains(domain: str) -> list[str]:
+    url = f"https://crt.sh/?q=%.{domain}&output=json"
+    resp = requests.get(url, timeout=30)
+    resp.raise_for_status()
+
+    # crt.sh occasionally returns invalid JSON when rate-limited; handle robustly
+    try:
+      data = resp.json()
+    except json.JSONDecodeError:
+      time.sleep(1)
+      data = requests.get(url, timeout=30).json()
+
+    subdomains: set[str] = set()
+    for row in data:
+      name_value = row.get("name_value", "")
+      for name in name_value.split("\n"):
+        name = name.strip().lower()
+        if name and "*" not in name:
+          subdomains.add(name)
+
+    return sorted(subdomains)
+
+
+  if __name__ == "__main__":
+    for s in ct_subdomains("example.com"):
+      print(s)
+  ```
+
+  **What to do with the output:** treat it as a hypothesis. Validate ownership (DNS, HTTP headers, ASN, cloud account mapping) before you act.
+
+  ### 2) Early Warning for Phishing and Brand Impersonation
+
+  Phishing campaigns frequently start with infrastructure setup: new domains, look‑alike URLs, freshly issued certificates, and social profiles. OSINT monitoring can flag these early so you can:
+
+  - block/sinkhole domains (where allowed)
+  - alert users and executives proactively
+  - prepare detection logic for the payloads you’re about to see
+
+  ### 3) Credential Exposure and Password Risk
+
+  Credential exposure is a reality; what matters is how fast you detect and reduce impact. A safe starting point is **password exposure checks** using k‑anonymity, which avoids sending the full password hash.
+
+  ```python
+  """Check if a password appears in known breach corpuses (k-anonymity).
+
+  This uses the Pwned Passwords range API (no full hash is sent).
+  """
+
+  from __future__ import annotations
+
+  import hashlib
+
+  import requests
+
+
+  def pwned_password_count(password: str) -> int:
+    sha1 = hashlib.sha1(password.encode("utf-8")).hexdigest().upper()
+    prefix, suffix = sha1[:5], sha1[5:]
+
+    resp = requests.get(f"https://api.pwnedpasswords.com/range/{prefix}", timeout=30)
+    resp.raise_for_status()
+
+    for line in resp.text.splitlines():
+      hash_suffix, count = line.split(":")
+      if hash_suffix == suffix:
+        return int(count)
+    return 0
+
+
+  if __name__ == "__main__":
+    count = pwned_password_count("password123")
+    print("Found in breaches:" if count else "Not found.", count)
+  ```
+
+  In real programs, you don’t check one password manually — you build processes around:
+
+  - password policy and MFA enforcement
+  - detection for anomalous logins
+  - rapid reset and session revocation
+
+  ### 4) Incident Response: The “Outside-In” View
+
+  During an incident, OSINT helps you answer:
+
+  - Is the attacker discussing this incident publicly?
+  - Are our leaked docs, screenshots, or credentials circulating?
+  - Is the infrastructure being reused across other victims?
+
+  It’s especially useful for validating scope and for communications: **what is already public**, and what might become public next.
+
+  ## A Practical OSINT Workflow (That Produces Decisions)
+
+  Here’s a workflow I’ve seen work reliably in real operations:
+
+  ### Step 1 — Start with a clear question
+
+  Good examples:
+
+  - “Which externally exposed services belong to our org today?”
+  - “Are there newly registered look‑alike domains for our brand this week?”
+  - “Did any of our employee emails appear in a new leak?”
+
+  Weak examples:
+
+  - “Find everything about Company X.”
+
+  ### Step 2 — Collect, but keep it structured
+
+  Treat each item as a record with metadata:
+
+  - source (where did it come from?)
+  - timestamp (when did we see it?)
+  - confidence (how sure are we?)
+  - relevance (what decision does it impact?)
+
+  ### Step 3 — Validate before you escalate
+
+  OSINT is noisy. Validation techniques include:
+
+  - corroborate across multiple sources
+  - check historical snapshots (is it new?)
+  - confirm asset ownership (DNS, cert chains, cloud account mapping)
+
+  ### Step 4 — Turn it into action
+
+  Your deliverable should look like:
+
+  - *Finding*: “New subdomain `staging.foo.com` resolves to public IP …”
+  - *Risk*: “Publicly accessible admin panel; likely internet-facing.”
+  - *Recommendation*: “Restrict access, rotate creds, add monitoring.”
+  - *Owner / SLA*: “Platform team, within 24 hours.”
+
+  ## Tools I Keep Coming Back To
+
+  I like tools that make the workflow faster, not flashier:
+
+  | Category | Examples | What they’re good for |
+  |---|---|---|
+  | Internet exposure | Shodan, Censys | Discovering exposed services and patterns |
+  | Automation | SpiderFoot, custom scripts | Repeatability and scale |
+  | Link analysis | Maltego | Correlating identities, infra, relationships |
+  | Collection | RSS, search alerts, CT logs | Early warning for changes |
+
+  If you want one “pro move” to improve OSINT immediately: **automate a small number of high-signal checks** and run them continuously.
+
+  Here’s a minimal example of monitoring a public JSON feed (or any endpoint) and alerting on change via a hash.
+
+  ```python
+  """Simple change monitoring for an endpoint.
+
+  Useful for tracking brand pages, security advisories, or public status pages.
+  """
+
+  from __future__ import annotations
+
+  import hashlib
+  import pathlib
+
+  import requests
+
+
+  def sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+  def monitor(url: str, state_file: str = "state.sha256") -> bool:
+    resp = requests.get(url, timeout=30)
+    resp.raise_for_status()
+
+    current = sha256_bytes(resp.content)
+    path = pathlib.Path(state_file)
+    previous = path.read_text().strip() if path.exists() else ""
+
+    if current != previous:
+      path.write_text(current)
+      return True
+    return False
+
+
+  if __name__ == "__main__":
+    changed = monitor("https://example.com/feed.json")
+    print("CHANGED" if changed else "No change")
+  ```
+
+  ## Ethics and Professional Boundaries
+
+  Strong OSINT programs are also disciplined:
+
+  - only collect what you need for the objective
+  - avoid personal data unless it’s strictly required and approved
+  - store findings securely (OSINT can become sensitive quickly)
+  - document sources and confidence so others can validate
+
+  ## Closing Thoughts
+
+  OSINT is a force multiplier: it improves security posture before an incident, speeds up decision-making during an incident, and reduces surprise after an incident. The key is to treat OSINT like engineering: repeatable workflows, clear objectives, and outputs that drive action.
+
+  ---
+
+  *Want to talk OSINT, threat intelligence, or building automated workflows? Feel free to [reach out](index.html#contact).* 
+  </script>
+
+  <script src="js/blog.js"></script>
+</body>
+
+</html>
