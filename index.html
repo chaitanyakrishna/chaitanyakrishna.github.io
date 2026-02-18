@@ -5,9 +5,10 @@
     <meta charset="utf-8" />
     <title>Chaitanya Krishna | Senior Security Operations Engineer @ Microsoft</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Senior Security Operations Engineer at Microsoft CDOC specializing in threat response, security automation, and cyber threat intelligence.">
-    <meta name="keywords" content="Cybersecurity, Security Operations, Microsoft, Threat Intelligence, CDOC">
+    <meta name="description" content="Senior Security Operations Engineer at Microsoft specializing in threat response, security automation, and cyber threat intelligence.">
+    <meta name="keywords" content="Cybersecurity, Security Operations, Microsoft, Threat Intelligence, OSINT, Incident Response">
     <meta name="author" content="Chaitanya Krishna Anantharapu" />
+    <meta name="theme-color" content="#0a0a0a">
     
     <!-- Open Graph -->
     <meta property="og:title" content="Chaitanya Krishna | Security Operations Engineer @ Microsoft">
@@ -20,7 +21,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -28,12 +29,1005 @@
     <link href="css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Base Styles -->
     <link href="css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
-    <!-- Monochrome Theme -->
+    <!-- Dark Monochrome Theme -->
     <link href="css/colors/monochrome.css" rel="stylesheet" id="color-opt">
 
+    <!-- Prevent flash of wrong theme -->
+    <script>
+        (function() {
+            var t = localStorage.getItem('theme') || 'dark';
+            if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
+        })();
+    </script>
+
+    <style>
+        /* ========================
+           Landing Page — Dark Cyber
+           ======================== */
+
+        /* Subtle Grid Background */
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 64px 64px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Gradient Glow Accent */
+        .hero-glow {
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-glow-2 {
+            position: absolute;
+            bottom: -30%;
+            left: -15%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Terminal Block */
+        .terminal-block {
+            font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+            background: var(--terminal-bg);
+            border: 1px solid var(--terminal-border);
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
+            padding-top: 2.25rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .terminal-dots {
+            position: absolute;
+            top: 14px;
+            left: 16px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .terminal-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .terminal-dots span:nth-child(1) { background: #ef4444; }
+        .terminal-dots span:nth-child(2) { background: #fbbf24; }
+        .terminal-dots span:nth-child(3) { background: #22c55e; }
+
+        .terminal-line {
+            font-size: 0.82rem;
+            line-height: 1.9;
+            color: var(--text-muted);
+        }
+
+        .terminal-prompt { color: var(--accent); }
+
+        .terminal-cmd { color: var(--text-secondary); }
+
+        .terminal-output { color: var(--text-strong); }
+
+        .cursor-blink {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: var(--accent);
+            animation: blink 1.1s step-end infinite;
+            vertical-align: text-bottom;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Hero Typography */
+        .hero-name {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            color: var(--text-heading);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-name { font-size: 2.5rem; }
+        }
+
+        .hero-role {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        /* Profile Image — Glitch Effect */
+        .profile-frame {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-frame img {
+            border-radius: 18px;
+            border: 1px solid var(--border-color);
+            max-width: 100%;
+            display: block;
+        }
+
+        /* Glitch container */
+        .glitch-wrapper {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+            border-radius: 18px;
+        }
+
+        .glitch-wrapper img {
+            display: block;
+            max-width: 100%;
+            border-radius: 18px;
+        }
+
+        /* Red & Cyan ghost layers via pseudo-elements on wrapper */
+        .glitch-wrapper::before,
+        .glitch-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 18px;
+            background: inherit;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .glitch-wrapper::before {
+            background: inherit;
+            mix-blend-mode: screen;
+        }
+
+        .glitch-wrapper::after {
+            background: inherit;
+            mix-blend-mode: screen;
+        }
+
+        /* RGB split layers using inner divs */
+        .glitch-layer {
+            position: absolute;
+            inset: 0;
+            border-radius: 18px;
+            overflow: hidden;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .glitch-layer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 18px;
+        }
+
+        .glitch-layer.red {
+            mix-blend-mode: screen;
+            animation: glitchRed 6s infinite;
+        }
+
+        .glitch-layer.red img {
+            filter: saturate(0) brightness(0.8);
+        }
+
+        .glitch-layer.cyan {
+            mix-blend-mode: screen;
+            animation: glitchCyan 6s infinite;
+        }
+
+        .glitch-layer.cyan img {
+            filter: saturate(0) brightness(0.8);
+        }
+
+        /* Scanlines overlay */
+        .glitch-scanlines {
+            position: absolute;
+            inset: 0;
+            border-radius: 18px;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 2px,
+                rgba(0,0,0,0.08) 2px,
+                rgba(0,0,0,0.08) 4px
+            );
+            pointer-events: none;
+            z-index: 4;
+        }
+
+        /* Horizontal glitch bar */
+        .glitch-bar {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: rgba(34,197,94,0.08);
+            z-index: 3;
+            pointer-events: none;
+            animation: glitchBar 3s infinite;
+        }
+
+        @keyframes glitchRed {
+            0%, 18% { opacity: 0; transform: translate(0); }
+            20% { opacity: 0.6; transform: translate(-3px, 1px); }
+            22% { opacity: 0.4; transform: translate(2px, -1px); }
+            24% { opacity: 0; transform: translate(0); }
+            48%, 50% { opacity: 0; transform: translate(0); }
+            52% { opacity: 0.5; transform: translate(3px, 2px); }
+            54% { opacity: 0; transform: translate(0); }
+            76%, 78% { opacity: 0; transform: translate(0); }
+            80% { opacity: 0.7; transform: translate(-4px, 0); }
+            82% { opacity: 0; transform: translate(0); }
+            100% { opacity: 0; transform: translate(0); }
+        }
+
+        @keyframes glitchCyan {
+            0%, 18% { opacity: 0; transform: translate(0); }
+            20% { opacity: 0.4; transform: translate(3px, -1px); }
+            22% { opacity: 0.6; transform: translate(-2px, 2px); }
+            24% { opacity: 0; transform: translate(0); }
+            48%, 50% { opacity: 0; transform: translate(0); }
+            52% { opacity: 0.3; transform: translate(-2px, -1px); }
+            54% { opacity: 0; transform: translate(0); }
+            76%, 78% { opacity: 0; transform: translate(0); }
+            80% { opacity: 0.5; transform: translate(4px, 0); }
+            82% { opacity: 0; transform: translate(0); }
+            100% { opacity: 0; transform: translate(0); }
+        }
+
+        @keyframes glitchBar {
+            0%, 18% { height: 0; top: 0; opacity: 0; }
+            20% { height: 30px; top: 25%; opacity: 1; }
+            22% { height: 8px; top: 60%; }
+            24% { height: 0; opacity: 0; }
+            48%, 50% { height: 0; top: 0; opacity: 0; }
+            52% { height: 15px; top: 70%; opacity: 1; }
+            54% { height: 0; opacity: 0; }
+            76%, 78% { height: 0; top: 0; opacity: 0; }
+            80% { height: 20px; top: 40%; opacity: 1; }
+            82% { height: 0; opacity: 0; }
+            100% { height: 0; opacity: 0; }
+        }
+
+        /* Subtle flicker on the main image */
+        .glitch-wrapper > img {
+            animation: glitchFlicker 3s infinite;
+        }
+
+        @keyframes glitchFlicker {
+            0%, 18% { filter: none; transform: translate(0); }
+            20% { filter: brightness(1.1); transform: translate(1px, 0); }
+            21% { filter: brightness(0.9); transform: translate(-1px, 0); }
+            22% { filter: brightness(1.15) contrast(1.1); transform: translate(2px, -1px); }
+            24% { filter: none; transform: translate(0); }
+            48%, 50% { filter: none; transform: translate(0); }
+            52% { filter: brightness(1.1); transform: translate(-1px, 1px); }
+            54% { filter: none; transform: translate(0); }
+            76%, 78% { filter: none; transform: translate(0); }
+            80% { filter: brightness(1.15); transform: translate(1px, -1px); }
+            82% { filter: none; transform: translate(0); }
+            100% { filter: none; transform: translate(0); }
+        }
+
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Hover: intensify glitch */
+        .profile-frame:hover .glitch-layer.red {
+            animation-duration: 1s;
+        }
+
+        .profile-frame:hover .glitch-layer.cyan {
+            animation-duration: 1s;
+        }
+
+        .profile-frame:hover .glitch-bar {
+            animation-duration: 1s;
+        }
+
+        .profile-frame:hover .glitch-wrapper > img {
+            animation-duration: 1s;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 3rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-block {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .stat-block .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            line-height: 1;
+        }
+
+        .stat-block .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.5rem;
+        }
+
+        /* Section Labels */
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-heading {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-heading);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .section-heading { font-size: 1.75rem; }
+        }
+
+        /* Dark Cards */
+        .dark-card {
+            background: var(--terminal-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+        }
+
+        .dark-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            background: var(--input-focus-bg);
+        }
+
+        .dark-card.featured {
+            border-color: var(--accent-border);
+            background: var(--accent-bg);
+        }
+
+        .dark-card.featured:hover {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        /* Experience elements */
+        .exp-badge {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.75rem;
+        }
+
+        .exp-badge.current { color: var(--accent); }
+
+        .exp-role {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-heading) !important;
+            margin-bottom: 0.4rem;
+            line-height: 1.3;
+        }
+
+        .exp-org {
+            font-size: 0.9rem;
+            color: var(--text-secondary) !important;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .exp-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted) !important;
+            line-height: 1.7;
+        }
+
+        /* Experience timeline rows */
+        .exp-row {
+            padding: 0.9rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .exp-timeline .exp-row:hover .exp-role {
+            color: var(--text-link-hover) !important;
+        }
+
+        /* Focus / Service Rows */
+        .service-list {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .service-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 1.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+            cursor: default;
+            transition: all 0.3s ease;
+        }
+
+        .service-row:first-child {
+            border-top: 1px solid var(--border-color);
+        }
+
+        .service-row:hover {
+            padding-left: 0.75rem;
+        }
+
+        .service-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--service-num);
+            min-width: 32px;
+            padding-top: 0.15rem;
+            transition: color 0.3s ease;
+        }
+
+        .service-row:hover .service-num {
+            color: var(--accent);
+        }
+
+        .service-icon-wrap {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--tag-bg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .service-row:hover .service-icon-wrap {
+            border-color: var(--accent-border);
+            color: var(--accent);
+            background: var(--accent-bg);
+        }
+
+        .service-content {
+            flex: 1;
+        }
+
+        .service-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-strong);
+            margin-bottom: 0.3rem;
+            transition: color 0.3s ease;
+        }
+
+        .service-row:hover .service-title {
+            color: var(--text-heading);
+        }
+
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.5rem;
+        }
+
+        .service-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            background: var(--tag-bg);
+            border: 1px solid var(--tag-border);
+            padding: 2px 10px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .service-row:hover .service-tag {
+            color: var(--accent);
+            border-color: var(--accent-border);
+            background: var(--accent-bg);
+        }
+
+        .service-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-top: 0.4rem;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+        }
+
+        .service-row:hover .service-desc {
+            max-height: 80px;
+            opacity: 1;
+            margin-top: 0.6rem;
+        }
+
+        /* Blog Card */
+        .blog-card {
+            background: var(--terminal-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+        }
+
+        .blog-tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--accent);
+            border: 1px solid var(--accent-border);
+            background: var(--accent-bg);
+            padding: 0.2rem 0.7rem;
+            border-radius: 100px;
+            margin-right: 0.35rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        /* Blog Post Row (landing page list) */
+        .blog-post-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .blog-post-row:first-child {
+            border-top: 1px solid var(--border-color);
+        }
+
+        .blog-post-row:hover {
+            padding-left: 0.75rem;
+            background: var(--terminal-bg);
+        }
+
+        .blog-post-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--service-num);
+            min-width: 28px;
+            padding-top: 0.15rem;
+            transition: color 0.3s ease;
+        }
+
+        .blog-post-row:hover .blog-post-num {
+            color: var(--accent);
+        }
+
+        .blog-post-info {
+            flex: 1;
+        }
+
+        .blog-post-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .blog-post-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 0.4rem;
+            text-decoration: underline;
+            text-decoration-color: transparent;
+            text-underline-offset: 4px;
+            text-decoration-thickness: 1.5px;
+            transition: text-decoration-color 0.3s ease, color 0.3s ease;
+            line-height: 1.4;
+        }
+
+        .blog-post-row:hover .blog-post-title {
+            text-decoration-color: var(--accent);
+        }
+
+        .blog-post-summary {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .blog-post-arrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            padding-top: 1.25rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .blog-post-row:hover .blog-post-arrow {
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        /* Philosophy */
+        .philosophy-item {
+            padding: 1rem 1.25rem;
+            border-left: 2px solid var(--philosophy-border);
+            margin-bottom: 0.75rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .philosophy-item:hover {
+            border-left-color: var(--accent);
+        }
+
+        .philosophy-item strong {
+            color: var(--text-strong);
+        }
+
+        /* Skill Tags */
+        .skill-tag-dark {
+            display: inline-block;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            margin: 0.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag-dark:hover {
+            border-color: var(--tag-hover-border);
+            color: var(--text-strong);
+        }
+
+        /* Contact form override */
+        .contact-form .form-control {
+            background: var(--input-bg) !important;
+            border: 1px solid var(--border-color) !important;
+            color: var(--text-primary) !important;
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+        }
+
+        .contact-form .form-control:focus {
+            border-color: var(--accent-border) !important;
+            box-shadow: 0 0 0 3px var(--accent-glow) !important;
+        }
+
+        .contact-form .form-control::placeholder {
+            color: var(--input-placeholder) !important;
+        }
+
+        /* Footer links */
+        .footer-links a {
+            color: var(--text-muted) !important;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover { color: var(--text-strong) !important; }
+
+        /* Separator line */
+        .sep-line {
+            height: 1px;
+            background: var(--border-color);
+            border: none;
+            margin: 0;
+        }
+
+        /* Brand / Logo */
+        .brand-logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-heading);
+        }
+        .brand-accent { color: var(--accent); }
+        .brand-logo-footer {
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: var(--text-heading);
+        }
+
+        /* Hero subtitle */
+        .hero-subtitle {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        /* About text */
+        .about-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Philosophy */
+        .philosophy-heading {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 1.25rem;
+        }
+        .philosophy-cursor {
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            animation: cursorBlink 1s step-end infinite;
+        }
+        .philosophy-text {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* Experience current card */
+        .exp-current {
+            padding: 1.25rem 1.5rem;
+            border: 1px solid var(--accent-border) !important;
+            border-radius: 12px;
+            background: var(--accent-bg);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Experience org name */
+        .exp-org-name {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .exp-current .exp-org-name {
+            font-size: 0.88rem;
+            margin-left: 0.15rem;
+        }
+
+        /* CV / view-all links */
+        .cv-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+        .cv-link:hover { color: var(--text-strong); }
+
+        /* Section description */
+        .section-desc {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Blog title */
+        .blog-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        /* Contact info */
+        .contact-icon { color: var(--text-strong); }
+        .contact-label { color: var(--text-heading); }
+        .contact-value {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+        a.contact-value:hover { color: var(--text-strong); }
+
+        /* Footer copyright */
+        .footer-copyright {
+            font-size: 0.8rem;
+            color: var(--input-placeholder);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--social-icon);
+            transition: all 0.3s ease;
+            padding: 0;
+            position: relative;
+        }
+        .theme-toggle-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent-border);
+        }
+        .theme-toggle-btn .feather {
+            width: 16px;
+            height: 16px;
+        }
+        /* Default (dark theme): show sun icon, hide moon */
+        .theme-icon-light { display: inline-block; }
+        .theme-icon-dark { display: none; }
+        /* Light theme: show moon icon, hide sun */
+        [data-theme="light"] .theme-icon-light { display: none; }
+        [data-theme="light"] .theme-icon-dark { display: inline-block; }
+
+        /* ========================
+           Responsive Overrides
+           ======================== */
+
+        /* Tablet (≤991px) */
+        @media (max-width: 991px) {
+            .hero-section { min-height: auto !important; padding: 120px 0 60px !important; }
+
+            .hero-name { font-size: 2.75rem; }
+
+            .terminal-block { padding: 1rem 1.25rem; padding-top: 2rem; }
+            .terminal-line { font-size: 0.75rem; }
+
+            .section-heading { font-size: 2rem; }
+
+            .stat-block .stat-number { font-size: 1.75rem; }
+
+            .stats-bar { padding: 2rem 0; }
+
+            .dark-card { padding: 1.5rem; }
+
+            .blog-card { padding: 1.5rem; }
+
+            section.section { padding: 70px 0 !important; }
+        }
+
+        /* Mobile (≤768px) */
+        @media (max-width: 768px) {
+            .hero-section { padding: 100px 0 50px !important; }
+
+            .hero-name { font-size: 2.25rem; }
+
+            .hero-glow, .hero-glow-2 { display: none; }
+
+            .terminal-block {
+                padding: 0.9rem 1rem;
+                padding-top: 1.75rem;
+                margin-bottom: 1.25rem;
+                overflow-x: auto;
+            }
+            .terminal-line { font-size: 0.7rem; white-space: nowrap; }
+
+            .section-heading { font-size: 1.6rem; }
+            .section-heading br { display: none; }
+
+            .section-label { font-size: 0.65rem; }
+
+            .stat-block .stat-number { font-size: 1.5rem; }
+            .stat-block .stat-label { font-size: 0.65rem; }
+            .stats-bar { padding: 1.5rem 0; }
+
+            .btn-primary, .btn-outline-primary {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.85rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .philosophy-item { padding: 0.75rem 1rem; }
+
+            .skill-tag-dark { font-size: 0.72rem; padding: 0.3rem 0.75rem; }
+
+            /* Experience timeline mobile */
+            .exp-row > div {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+            }
+            .exp-row .exp-badge { margin-top: 0.2rem; }
+
+            .exp-row.exp-current { padding: 1rem 1.25rem; }
+
+            .blog-card { padding: 1.25rem; }
+            .blog-tag { font-size: 0.62rem; padding: 0.15rem 0.55rem; }
+
+            .contact-form .form-control { padding: 0.85rem 1rem; font-size: 0.88rem; }
+
+            .footer-links a { display: inline-block; margin-bottom: 0.35rem; }
+
+            .profile-frame img { max-width: 60% !important; }
+        }
+
+        /* Small Mobile (≤480px) */
+        @media (max-width: 480px) {
+            .hero-name { font-size: 1.85rem; }
+
+            .terminal-line { font-size: 0.62rem; line-height: 1.7; }
+
+            .section-heading { font-size: 1.4rem; }
+
+            .stat-block { padding: 0.5rem; }
+            .stat-block .stat-number { font-size: 1.25rem; }
+
+            .exp-role { font-size: 0.85rem !important; }
+
+            .service-row { gap: 0.75rem; padding: 1.25rem 0; }
+            .service-num { display: none; }
+            .service-icon-wrap { width: 36px; height: 36px; }
+            .service-title { font-size: 0.9rem; }
+            .service-tag { font-size: 0.6rem; }
+
+            .dark-card { padding: 1.25rem; border-radius: 10px; }
+
+            /* reCAPTCHA responsive scale */
+            .g-recaptcha {
+                transform: scale(0.85);
+                transform-origin: center center;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Grid Background -->
+    <div class="grid-bg"></div>
+
     <!-- Loader -->
     <div id="preloader">
         <div id="status">
@@ -44,12 +1038,12 @@
             </div>
         </div>
     </div>
-    <!-- Loader -->
 
     <!-- Navbar Start -->
     <nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-custom navbar-light sticky">
         <div class="container">
-            <a class="navbar-brand" href="">
+            <a class="navbar-brand" href="#">
+                <span class="brand-logo">CK<span class="brand-accent">_</span></span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span data-feather="menu" class="fea icon-md"></span>
@@ -84,87 +1078,168 @@
                     <li class="list-inline-item"><a href="https://www.linkedin.com/in/chaitanyakrishnaa/" target="_blank"><i class="mdi mdi-linkedin"></i></a></li>
                     <li class="list-inline-item"><a href="https://github.com/chaitanyakrishna" target="_blank"><i class="mdi mdi-github"></i></a></li>
                     <li class="list-inline-item"><a href="https://twitter.com/anantharapu" target="_blank"><i class="mdi mdi-twitter"></i></a></li>
+                    <li class="list-inline-item ms-1">
+                        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle dark/light theme">
+                            <i data-feather="moon" class="theme-icon-dark"></i>
+                            <i data-feather="sun" class="theme-icon-light"></i>
+                        </button>
+                    </li>
                 </ul>
-            </div> 
+            </div>
         </div>
     </nav>
     <!-- Navbar End -->
 
     <!-- Hero Section Start -->
-    <section class="hero-section" id="home" style="min-height: 100vh; display: flex; align-items: center;">
-        <div class="container">
+    <section class="hero-section" id="home" style="min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden;">
+        <div class="hero-glow"></div>
+        <div class="hero-glow-2"></div>
+        <div class="container" style="position: relative; z-index: 1;">
             <div class="row align-items-center">
                 <div class="col-lg-7 col-md-7">
-                    <div class="title-heading mt-5">
-                        <p class="sub-title mb-3" style="opacity: 0; animation: fadeInUp 0.6s ease forwards; animation-delay: 0.1s;">Senior Security Operations Engineer @ Microsoft</p>
-                        <h1 class="heading mb-4" style="opacity: 0; animation: fadeInUp 0.6s ease forwards; animation-delay: 0.2s;">Chaitanya Krishna<br>Anantharapu</h1>
-                        <p class="para-desc text-muted" style="font-size: 1.1rem; line-height: 1.8; opacity: 0; animation: fadeInUp 0.6s ease forwards; animation-delay: 0.3s;">
-                            A cybersecurity leader with over a decade of experience in threat intelligence, incident response, and security assessments. Passionate about OSINT, building security automation, and mentoring the next generation of cybersecurity professionals.
-                        </p>
-                        <div class="mt-4 pt-2" style="opacity: 0; animation: fadeInUp 0.6s ease forwards; animation-delay: 0.4s;">
-                            <a href="#contact" class="btn btn-primary me-2 mb-2">Get In Touch</a>
-                            <a href="https://github.com/chaitanyakrishna/MyCV/raw/main/Chaitanya%20Krishna%20CV.pdf" target="_blank" class="btn btn-outline-primary mb-2">Download CV <i data-feather="download" class="fea icon-sm"></i></a>
+                    <!-- Terminal Block -->
+                    <div style="opacity: 0; animation: fadeInUp 0.6s ease forwards; animation-delay: 0.1s;">
+                        <div class="terminal-block">
+                            <div class="terminal-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">$</span> <span class="terminal-cmd">whoami</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-output">chaitanya.krishna</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">$</span> <span class="terminal-cmd">cat role.txt</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-output">Senior Security Operations Engineer @ Microsoft</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">$</span> <span class="terminal-cmd">echo $FOCUS</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-output">Threat Response | Security Automation | OSINT | CTI</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">$</span> <span class="cursor-blink"></span>
+                            </div>
                         </div>
+                    </div>
+
+                    <h1 class="hero-name" style="opacity: 0; animation: fadeInUp 0.6s ease forwards; animation-delay: 0.2s;">
+                        Chaitanya Krishna<br>Anantharapu
+                    </h1>
+
+                    <p class="hero-subtitle" style="max-width: 540px; opacity: 0; animation: fadeInUp 0.6s ease forwards; animation-delay: 0.3s;">
+                        Cybersecurity practitioner with <span class="exp-years">13</span>+ years across threat intelligence, incident response, and security operations. I build detection systems, automate response workflows, and turn noisy telemetry into decisions.
+                    </p>
+
+                    <div class="mt-4 pt-2" style="opacity: 0; animation: fadeInUp 0.6s ease forwards; animation-delay: 0.4s;">
+                        <a href="#contact" class="btn btn-primary me-2 mb-2">Get In Touch</a>
+                        <a href="https://github.com/chaitanyakrishna/MyCV/raw/main/Chaitanya%20Krishna%20CV.pdf" target="_blank" class="btn btn-outline-primary mb-2">Download CV <i data-feather="download" class="fea icon-sm"></i></a>
                     </div>
                 </div>
 
                 <div class="col-lg-5 col-md-5 mt-4 pt-2 mt-sm-0 pt-sm-0">
-                    <div class="hero-img text-center" style="opacity: 0; animation: fadeIn 0.8s ease forwards; animation-delay: 0.5s;">
-                        <img src="images/home/picture1.png" class="img-fluid" alt="Chaitanya Krishna" style="max-width: 80%; border-radius: 20px;">
+                    <div class="text-center profile-frame" style="opacity: 0; animation: fadeIn 0.8s ease forwards; animation-delay: 0.5s;">
+                        <div class="glitch-wrapper">
+                            <img src="images/picture2.png" class="img-fluid" alt="Chaitanya Krishna" style="max-width: 80%;">
+                            <div class="glitch-layer red"><img src="images/picture2.png" alt=""></div>
+                            <div class="glitch-layer cyan"><img src="images/picture2.png" alt=""></div>
+                            <div class="glitch-scanlines"></div>
+                            <div class="glitch-bar"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <a href="#about" class="mouse-icon d-none d-md-inline-block rounded-pill bg-transparent mouse-down" style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);">
             <span class="wheel position-relative d-block mover"></span>
         </a>
     </section>
     <!-- Hero Section End -->
-    
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-4">
+                    <div class="stat-block">
+                        <div class="stat-number"><span class="exp-years">13</span>+</div>
+                        <div class="stat-label">Years in Security</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="stat-block">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Organizations</div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="stat-block">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Sectors Covered</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- About Section Start -->
     <section class="section" id="about" style="padding: 100px 0;">
-        <div class="container-fluid px-3 px-md-4 px-xxl-5">
+        <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="about-content">
-                        <div class="row align-items-center">
-                            <div class="col-lg-4 col-md-5 mb-4 mb-md-0">
-                                <img src="images/picture2.png" class="img-fluid rounded-3" alt="Chaitanya Krishna">
-                            </div>
-                            <div class="col-lg-8 col-md-7">
-                                <h4 class="mb-3" style="font-size: 1.75rem;">About Me</h4>
-                                <p class="text-muted mb-3" style="line-height: 1.8;">
-                                    Over the last 10+ years, I’ve worked across consulting and enterprise environments, including engagements with both government and private organisations. I began my career doing hands-on security assessments, including vulnerability assessments, penetration testing, and security reviews, before moving into threat intelligence and security operations. I realised early on that finding problems is only half the job; fixing them in a repeatable, operational way is where the real value lies.
-                                </p>
-                                <p class="text-muted mb-3" style="line-height: 1.8;">
-                                    My core strength is taking messy, unclear security problems and turning them into practical outcomes: cleaner detections, faster response, and less unnecessary noise for security teams. I spend a lot of time working with OSINT and security automation, and I enjoy building small, focused tools including GenAI assisted workflows that help teams move faster without compromising on fundamentals.
-                                </p>
-                                <p class="text-muted mb-4" style="line-height: 1.8;">
-                                    I also write and mentor alongside my work. Not for visibility, but to document what actually works, highlight common mistakes, and share lessons that teams usually learn the hard way.
-                                </p>
+                <div class="col-lg-11 col-xl-10">
+                    <div class="section-label">// About</div>
+                    <h2 class="section-heading">Building security that<br>actually works.</h2>
 
-                                <div class="mt-4">
-                                    <h5 class="mb-3" style="font-size: 1.15rem; font-weight: 700;">My Philosophy</h5>
-                                    <ul class="text-muted" style="line-height: 1.8; padding-left: 1.1rem; margin-bottom: 0;">
-                                        <li class="mb-2"><strong>Clarity over noise:</strong> The goal isn’t more alerts it's fewer surprises. I aim for detections and processes that are simple to understand and easy to operate.</li>
-                                        <li class="mb-2"><strong>Automate the repeatable:</strong> If a task happens more than a few times, it deserves automation. Human time should go to judgment, investigation, and learning.</li>
-                                        <li class="mb-2"><strong>Trust, but verify:</strong> OSINT and telemetry are inputs not truth. I validate signals, corroborate sources, and document assumptions before escalating.</li>
-                                        <li class="mb-2"><strong>Build with empathy:</strong> Security should enable teams, not block them. I try to meet people where they are and make secure paths the easiest paths.</li>
-                                    </ul>
-                                </div>
-                                
-                                <!-- Skills -->
-                                <div class="mt-4">
-                                    <span class="skill-tag">Cloud Security</span>
-                                    <span class="skill-tag">Threat Intelligence</span>
-                                    <span class="skill-tag">Incident Response</span>
-                                    <span class="skill-tag">Security Automation</span>
-                                    <span class="skill-tag">OSINT</span>
-                                    <span class="skill-tag">GenAI</span>
-                                </div>
-                            </div>
+                    <p class="about-text">
+                        Over the last <span class="exp-years">13</span>+ years, I've worked across consulting and enterprise environments, including engagements with both government and private organisations. I began my career doing hands-on security assessments &mdash; vulnerability assessments, penetration testing, and security reviews &mdash; before moving into threat intelligence and security operations.
+                    </p>
+                    <p class="about-text">
+                        My core strength is taking messy, unclear security problems and turning them into practical outcomes: cleaner detections, faster response, and less unnecessary noise for security teams. I spend a lot of time working with OSINT and security automation, building focused tools including GenAI-assisted workflows that help teams move faster without compromising fundamentals.
+                    </p>
+
+                    <div class="mt-4">
+                        <h5 class="philosophy-heading">
+                            <span class="philosophy-cursor">&gt;</span> Philosophy
+                        </h5>
+
+                        <div class="philosophy-item">
+                            <p class="philosophy-text">
+                                <strong>Clarity over noise</strong> &mdash; The goal isn't more alerts; it's fewer surprises. Simple to understand, easy to operate.
+                            </p>
                         </div>
+                        <div class="philosophy-item">
+                            <p class="philosophy-text">
+                                <strong>Automate the repeatable</strong> &mdash; If a task happens more than a few times, it deserves automation. Human time goes to judgment.
+                            </p>
+                        </div>
+                        <div class="philosophy-item">
+                            <p class="philosophy-text">
+                                <strong>Trust, but verify</strong> &mdash; OSINT and telemetry are inputs, not truth. Validate signals, corroborate sources, document assumptions.
+                            </p>
+                        </div>
+                        <div class="philosophy-item">
+                            <p class="philosophy-text">
+                                <strong>Build with empathy</strong> &mdash; Security should enable teams, not block them. Make secure paths the easiest paths.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="mt-4">
+                        <span class="skill-tag-dark">Cloud Security</span>
+                        <span class="skill-tag-dark">Threat Intelligence</span>
+                        <span class="skill-tag-dark">Incident Response</span>
+                        <span class="skill-tag-dark">Security Automation</span>
+                        <span class="skill-tag-dark">OSINT</span>
+                        <span class="skill-tag-dark">GenAI</span>
+                        <span class="skill-tag-dark">SOAR</span>
+                        <span class="skill-tag-dark">SIEM</span>
+                        <span class="skill-tag-dark">Pen Testing</span>
                     </div>
                 </div>
             </div>
@@ -172,187 +1247,220 @@
     </section>
     <!-- About Section End -->
 
+    <hr class="sep-line">
+
     <!-- Experience Section Start -->
     <section class="section" id="experience" style="padding: 100px 0;">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12 text-center mb-5">
-                    <div class="section-title">
-                        <h4 class="title mb-4">Experience</h4>
-                        <p class="text-muted mx-auto" style="max-width: 600px;">
-                            Over a decade of experience in information security across enterprise, healthcare, and consulting sectors.
-                        </p>
-                    </div>
-                </div>
-            </div>
+                <div class="col-lg-8">
+                    <div class="section-label">// Experience</div>
+                    <h2 class="section-heading mb-5">Where I've operated.</h2>
 
-            <div class="row g-4">
-                <!-- Current Position - Microsoft (Featured) -->
-                <div class="col-lg-6 col-md-6">
-                    <div class="experience-card featured">
-                        <span class="exp-duration">August 2025 – Present</span>
-                        <h5 class="exp-title">Senior Security Operations Engineer</h5>
-                        <p class="exp-company">Microsoft</p>
-                        <p class="exp-description">
-                            Part of Microsoft's Cyber Defense Operations Center, where I focus on rapid threat response and containment across global enterprise environments. My day-to-day involves building automation to minimize impact and keep operations running smoothly.
-                        </p>
+                    <!-- Current Role — highlighted -->
+                    <div class="exp-row exp-current">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.25rem;">
+                            <div>
+                                <span class="exp-role" style="font-size: 1rem; margin-bottom: 0;">Senior Security Operations Engineer</span>
+                                <span class="exp-org-name">&mdash; Microsoft</span>
+                            </div>
+                            <span class="exp-badge current" style="margin-bottom: 0;">&#9679; Present</span>
+                        </div>
+                        <p class="exp-desc" style="margin-top: 0.5rem; margin-bottom: 0;">Rapid threat response &amp; containment across global enterprise environments.</p>
                     </div>
-                </div>
 
-                <!-- Zemoso Technologies -->
-                <div class="col-lg-6 col-md-6">
-                    <div class="experience-card">
-                        <span class="exp-duration">May 2023 – July 2025</span>
-                        <h5 class="exp-title">IT Security Specialist</h5>
-                        <p class="exp-company">Zemoso Technologies</p>
-                        <p class="exp-description">
-                            As the sole security lead reporting to the CTO, I owned everything security — from cloud posture across GCP, AWS, and Azure to deploying Wazuh SIEM and building SOAR workflows that cut our response times significantly.
-                        </p>
+                    <!-- Timeline List -->
+                    <div class="exp-timeline">
+                        <div class="exp-row">
+                            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.25rem;">
+                                <div>
+                                    <span class="exp-role" style="font-size: 0.95rem; margin-bottom: 0;">IT Security Specialist</span>
+                                    <span class="exp-org-name">&mdash; Zemoso Technologies</span>
+                                </div>
+                                <span class="exp-badge" style="margin-bottom: 0;">2023 &ndash; 2025</span>
+                            </div>
+                        </div>
+
+                        <div class="exp-row">
+                            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.25rem;">
+                                <div>
+                                    <span class="exp-role" style="font-size: 0.95rem; margin-bottom: 0;">Senior Cyber Security Specialist</span>
+                                    <span class="exp-org-name">&mdash; Prime Healthcare</span>
+                                </div>
+                                <span class="exp-badge" style="margin-bottom: 0;">2020 &ndash; 2023</span>
+                            </div>
+                        </div>
+
+                        <div class="exp-row">
+                            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.25rem;">
+                                <div>
+                                    <span class="exp-role" style="font-size: 0.95rem; margin-bottom: 0;">IT Security Specialist</span>
+                                    <span class="exp-org-name">&mdash; Agility E-Services</span>
+                                </div>
+                                <span class="exp-badge" style="margin-bottom: 0;">2018 &ndash; 2020</span>
+                            </div>
+                        </div>
+
+                        <div class="exp-row">
+                            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.25rem;">
+                                <div>
+                                    <span class="exp-role" style="font-size: 0.95rem; margin-bottom: 0;">Senior Analyst, Cyber Threat Intelligence</span>
+                                    <span class="exp-org-name">&mdash; Deloitte India (USI)</span>
+                                </div>
+                                <span class="exp-badge" style="margin-bottom: 0;">2017 &ndash; 2018</span>
+                            </div>
+                        </div>
+
+                        <div class="exp-row">
+                            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.25rem;">
+                                <div>
+                                    <span class="exp-role" style="font-size: 0.95rem; margin-bottom: 0;">Security Analyst</span>
+                                    <span class="exp-org-name">&mdash; EiQ Networks</span>
+                                </div>
+                                <span class="exp-badge" style="margin-bottom: 0;">2016 &ndash; 2017</span>
+                            </div>
+                        </div>
+
+                        <div class="exp-row">
+                            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.25rem;">
+                                <div>
+                                    <span class="exp-role" style="font-size: 0.95rem; margin-bottom: 0;">ERS Consultant</span>
+                                    <span class="exp-org-name">&mdash; Deloitte India</span>
+                                </div>
+                                <span class="exp-badge" style="margin-bottom: 0;">2015 &ndash; 2016</span>
+                            </div>
+                        </div>
+
+                        <div class="exp-row" style="border-bottom: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.25rem;">
+                                <div>
+                                    <span class="exp-role" style="font-size: 0.95rem; margin-bottom: 0;">Independent Security Consultant</span>
+                                    <span class="exp-org-name">&mdash; Self-Employed</span>
+                                </div>
+                                <span class="exp-badge" style="margin-bottom: 0;">2012 &ndash; 2015</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Prime Healthcare -->
-                <div class="col-lg-6 col-md-6">
-                    <div class="experience-card">
-                        <span class="exp-duration">September 2020 – May 2023</span>
-                        <h5 class="exp-title">Senior Cyber Security Specialist</h5>
-                        <p class="exp-company">Prime Healthcare</p>
-                        <p class="exp-description">
-                            Led the Cyber Threat Intelligence function for a network of hospitals. Built automation scripts that streamlined our CTI workflows, authored TTP reports, and helped secure IoT medical devices across the healthcare group.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Agility -->
-                <div class="col-lg-6 col-md-6">
-                    <div class="experience-card">
-                        <span class="exp-duration">November 2018 – May 2020</span>
-                        <h5 class="exp-title">IT Security Specialist</h5>
-                        <p class="exp-company">Agility E-Services</p>
-                        <p class="exp-description">
-                            Handled incident triage, forensic investigations, and proactive threat hunting. Worked with global teams to develop incident response playbooks and improve our detection capabilities.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Deloitte USI -->
-                <div class="col-lg-6 col-md-6">
-                    <div class="experience-card">
-                        <span class="exp-duration">May 2017 – October 2018</span>
-                        <h5 class="exp-title">Senior Analyst – Cyber Threat Intelligence</h5>
-                        <p class="exp-company">Deloitte India (Offices of the US)</p>
-                        <p class="exp-description">
-                            Delivered customized threat intelligence to Deloitte Member Firms across multiple regions. Developed TTP documentation and briefed senior leadership on emerging cyber threats and best practices.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- EiQ Networks -->
-                <div class="col-lg-6 col-md-6">
-                    <div class="experience-card">
-                        <span class="exp-duration">February 2016 – May 2017</span>
-                        <h5 class="exp-title">Security Analyst</h5>
-                        <p class="exp-company">EiQ Networks</p>
-                        <p class="exp-description">
-                            Managed SOC operations for enterprise customers — from SIEM implementation and onboarding to vulnerability assessments and incident response. This is where I built my foundation in security operations.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Deloitte India -->
-                <div class="col-lg-6 col-md-6">
-                    <div class="experience-card">
-                        <span class="exp-duration">July 2015 – January 2016</span>
-                        <h5 class="exp-title">Enterprise Risk Services Consultant</h5>
-                        <p class="exp-company">Deloitte India</p>
-                        <p class="exp-description">
-                            Worked on security assessments and policy development for public sector clients including state governments. Created security policies and procedures from scratch for large-scale projects.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Independent Consultant -->
-                <div class="col-lg-6 col-md-6">
-                    <div class="experience-card">
-                        <span class="exp-duration">September 2012 – August 2015</span>
-                        <h5 class="exp-title">Independent Security Consultant</h5>
-                        <p class="exp-company">Self-Employed</p>
-                        <p class="exp-description">
-                            Started my journey doing penetration testing and security reviews for web apps, mobile applications, and infrastructure. Worked with diverse clients and learned to adapt quickly to different environments.
-                        </p>
+                    <div class="mt-4 text-center">
+                        <a href="https://github.com/chaitanyakrishna/MyCV/raw/main/Chaitanya%20Krishna%20CV.pdf" target="_blank" class="cv-link">
+                            Full details in CV <span style="margin-left: 4px;">&rarr;</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- Experience Section End -->
-        
+
+    <hr class="sep-line">
+
     <!-- Services Section Start -->
     <section class="section" id="services" style="padding: 100px 0;">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 text-center mb-5">
-                    <div class="section-title">
-                        <h4 class="title mb-4">Services</h4>
-                        <p class="text-muted mx-auto" style="max-width: 600px;">
-                            Specialized security services tailored to your organization's needs.
-                        </p>
-                    </div>
+            <div class="row justify-content-center mb-5">
+                <div class="col-12 text-center">
+                    <div class="section-label">// Services</div>
+                    <h2 class="section-heading">What I do.</h2>
                 </div>
             </div>
 
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-wrapper rounded position-relative text-center p-4 pt-5 pb-5">
-                        <div class="icon text-primary mb-4">
-                            <i data-feather="shield" class="fea icon-md"></i>
+            <div class="service-list">
+                <div class="service-row">
+                    <div class="service-num">01</div>
+                    <div class="service-icon-wrap">
+                        <i data-feather="shield" class="fea icon-sm"></i>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-title">Security Assessment & Pen Testing</div>
+                        <div class="service-tags">
+                            <span class="service-tag">Web Apps</span>
+                            <span class="service-tag">APIs</span>
+                            <span class="service-tag">Infrastructure</span>
+                            <span class="service-tag">Cloud</span>
                         </div>
-                        <h5 class="title">Security Assessment & Penetration Testing</h5>
+                        <div class="service-desc">Finding weaknesses before adversaries do. Methodical testing across the full stack.</div>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-wrapper rounded position-relative text-center p-4 pt-5 pb-5">
-                        <div class="icon text-primary mb-4">
-                            <i data-feather="search" class="fea icon-md"></i>
+                <div class="service-row">
+                    <div class="service-num">02</div>
+                    <div class="service-icon-wrap">
+                        <i data-feather="search" class="fea icon-sm"></i>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-title">Threat Intelligence & OSINT</div>
+                        <div class="service-tags">
+                            <span class="service-tag">Attack Surface</span>
+                            <span class="service-tag">Credential Monitoring</span>
+                            <span class="service-tag">Brand Protection</span>
                         </div>
-                        <h5 class="title">Threat Intelligence & OSINT</h5>
+                        <div class="service-desc">Turning public data into defensive advantage. Continuous monitoring and proactive discovery.</div>
                     </div>
                 </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-wrapper rounded position-relative text-center p-4 pt-5 pb-5">
-                        <div class="icon text-primary mb-4">
-                            <i data-feather="alert-triangle" class="fea icon-md"></i>
+
+                <div class="service-row">
+                    <div class="service-num">03</div>
+                    <div class="service-icon-wrap">
+                        <i data-feather="alert-triangle" class="fea icon-sm"></i>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-title">Incident Response</div>
+                        <div class="service-tags">
+                            <span class="service-tag">Containment</span>
+                            <span class="service-tag">Forensics</span>
+                            <span class="service-tag">Post-Incident Hardening</span>
                         </div>
-                        <h5 class="title">Incident Response</h5>
+                        <div class="service-desc">Calm under pressure, fast in execution. From detection to recovery.</div>
                     </div>
                 </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-wrapper rounded position-relative text-center p-4 pt-5 pb-5">
-                        <div class="icon text-primary mb-4">
-                            <i data-feather="cpu" class="fea icon-md"></i>
+
+                <div class="service-row">
+                    <div class="service-num">04</div>
+                    <div class="service-icon-wrap">
+                        <i data-feather="cpu" class="fea icon-sm"></i>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-title">Security Automation & SOAR</div>
+                        <div class="service-tags">
+                            <span class="service-tag">Playbooks</span>
+                            <span class="service-tag">Orchestration</span>
+                            <span class="service-tag">GenAI Workflows</span>
                         </div>
-                        <h5 class="title">Security Automation & SOAR</h5>
+                        <div class="service-desc">Automating the repeatable so analysts focus on judgment, investigation, and learning.</div>
                     </div>
                 </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-wrapper rounded position-relative text-center p-4 pt-5 pb-5">
-                        <div class="icon text-primary mb-4">
-                            <i data-feather="users" class="fea icon-md"></i>
+
+                <div class="service-row">
+                    <div class="service-num">05</div>
+                    <div class="service-icon-wrap">
+                        <i data-feather="users" class="fea icon-sm"></i>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-title">Security Training & Mentorship</div>
+                        <div class="service-tags">
+                            <span class="service-tag">Offensive</span>
+                            <span class="service-tag">Defensive</span>
+                            <span class="service-tag">Team Building</span>
                         </div>
-                        <h5 class="title">Cybersecurity Training</h5>
+                        <div class="service-desc">Practical, no-BS training. Built for teams at every level.</div>
                     </div>
                 </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-wrapper rounded position-relative text-center p-4 pt-5 pb-5">
-                        <div class="icon text-primary mb-4">
-                            <i data-feather="cloud" class="fea icon-md"></i>
+
+                <div class="service-row">
+                    <div class="service-num">06</div>
+                    <div class="service-icon-wrap">
+                        <i data-feather="cloud" class="fea icon-sm"></i>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-title">Cloud Security</div>
+                        <div class="service-tags">
+                            <span class="service-tag">AWS</span>
+                            <span class="service-tag">Azure</span>
+                            <span class="service-tag">GCP</span>
+                            <span class="service-tag">IAM</span>
                         </div>
-                        <h5 class="title">Cloud Security</h5>
+                        <div class="service-desc">Posture management, runtime detection, and securing workloads at scale.</div>
                     </div>
                 </div>
             </div>
@@ -360,62 +1468,58 @@
     </section>
     <!-- Services Section End -->
 
+    <hr class="sep-line">
+
     <!-- Blog Section Start -->
     <section class="section" id="blog" style="padding: 100px 0;">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 text-center mb-5">
-                    <div class="section-title">
-                        <h4 class="title mb-4">Blog</h4>
-                        <p class="text-muted mx-auto" style="max-width: 700px;">
-                            Short, practical notes on cybersecurity, threat intelligence, incident response, and OSINT.
-                        </p>
-                    </div>
+            <div class="row justify-content-center mb-5">
+                <div class="col-12 text-center">
+                    <div class="section-label">// Blog</div>
+                    <h2 class="section-heading">Field notes.</h2>
+                    <p class="section-desc">
+                        Practical notes on cybersecurity, threat intelligence, OSINT, and incident response. No fluff &mdash; just things that work.
+                    </p>
                 </div>
             </div>
 
-            <div class="row g-4 justify-content-center">
+            <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <div class="experience-card hover-lift">
-                        <span class="exp-duration">January 17, 2026</span>
-                        <h5 class="exp-title">The Importance of OSINT in Modern Cybersecurity</h5>
-                        <p class="exp-company">Article</p>
-                        <p class="exp-description">
-                            OSINT is a discipline that turns public information into security decisions. This post walks through real-world workflows, validation, ethics, and a few defensive automation snippets you can start using.
-                        </p>
-                        <div class="mt-3">
-                            <a href="blog.html?post=importance-of-osint" class="btn btn-outline-primary">Read Article</a>
-                        </div>
+                    <div id="blog-posts-container">
+                        <!-- Auto-rendered from posts data -->
                     </div>
                 </div>
             </div>
 
             <div class="row mt-4">
                 <div class="col-12 text-center">
-                    <a href="blog.html" class="text-muted">View all posts →</a>
+                    <a href="blog.html" class="cv-link" style="font-size: 0.88rem;">
+                        View all posts <span style="margin-left: 4px;">&rarr;</span>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
     <!-- Blog Section End -->
 
+    <hr class="sep-line">
+
     <!-- Contact Section Start -->
     <section class="section" id="contact" style="padding: 100px 0;">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 text-center mb-5">
-                    <div class="section-title">
-                        <h4 class="title mb-4">Get In Touch</h4>
-                        <p class="text-muted mx-auto" style="max-width: 600px;">
-                            Interested in cybersecurity innovation, automation, mentorship, or building resilient security operations? Let's connect.
-                        </p>
-                    </div>
+            <div class="row justify-content-center mb-5">
+                <div class="col-12 text-center">
+                    <div class="section-label">// Contact</div>
+                    <h2 class="section-heading">Let's connect.</h2>
+                    <p class="section-desc">
+                        Security automation, threat intelligence, mentorship, or just talking shop &mdash; I'm always open to connecting with the community.
+                    </p>
                 </div>
             </div>
 
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <div class="custom-form">
+                    <div class="contact-form">
                         <form id="contact-form" action="https://formspree.io/f/xlgggkbb" method="POST">
                             <p id="error-msg"></p>
                             <div id="simple-msg"></div>
@@ -449,19 +1553,19 @@
                 <div class="col-lg-8">
                     <div class="row text-center">
                         <div class="col-md-4 mb-4 mb-md-0">
-                            <i data-feather="mail" class="fea icon-md mb-3" style="color: #000;"></i>
-                            <h6>Email</h6>
-                            <a href="mailto:chaitanyapentest@gmail.com" class="text-muted">chaitanyapentest@gmail.com</a>
+                            <i data-feather="mail" class="fea icon-md mb-3 contact-icon"></i>
+                            <h6 class="contact-label">Email</h6>
+                            <a href="mailto:chaitanyapentest@gmail.com" class="contact-value">chaitanyapentest@gmail.com</a>
                         </div>
                         <div class="col-md-4 mb-4 mb-md-0">
-                            <i data-feather="phone" class="fea icon-md mb-3" style="color: #000;"></i>
-                            <h6>Phone</h6>
-                            <p class="text-muted mb-0">+91 8019274215</p>
+                            <i data-feather="phone" class="fea icon-md mb-3 contact-icon"></i>
+                            <h6 class="contact-label">Phone</h6>
+                            <p class="contact-value" style="margin-bottom: 0;">+91 8019274215</p>
                         </div>
                         <div class="col-md-4">
-                            <i data-feather="map-pin" class="fea icon-md mb-3" style="color: #000;"></i>
-                            <h6>Location</h6>
-                            <p class="text-muted mb-0">Hyderabad, India</p>
+                            <i data-feather="map-pin" class="fea icon-md mb-3 contact-icon"></i>
+                            <h6 class="contact-label">Location</h6>
+                            <p class="contact-value" style="margin-bottom: 0;">Hyderabad, India</p>
                         </div>
                     </div>
                 </div>
@@ -475,7 +1579,9 @@
         <div class="container">
             <div class="row justify-content-center py-5">
                 <div class="col-12 text-center">
-                    <h5 class="mb-4" style="font-weight: 700;">Chaitanya Krishna</h5>
+                    <h5 class="mb-4 brand-logo-footer">
+                        CK<span class="brand-accent">_</span>
+                    </h5>
                     <ul class="list-unstyled mb-4 social-icon">
                         <li class="list-inline-item mx-2"><a href="https://www.linkedin.com/in/chaitanyakrishnaa/" target="_blank"><i class="mdi mdi-linkedin mdi-24px"></i></a></li>
                         <li class="list-inline-item mx-2"><a href="https://github.com/chaitanyakrishna" target="_blank"><i class="mdi mdi-github mdi-24px"></i></a></li>
@@ -483,9 +1589,9 @@
                     </ul>
 
                     <div class="footer-links">
-                        <a href="tos.html" class="text-muted me-3">Terms</a>
-                        <a href="privacy.html" class="text-muted me-3">Privacy</a>
-                        <a href="refund.html" class="text-muted">Refund Policy</a>
+                        <a href="tos.html" class="me-3">Terms</a>
+                        <a href="privacy.html" class="me-3">Privacy</a>
+                        <a href="refund.html">Refund Policy</a>
                     </div>
                 </div>
             </div>
@@ -493,7 +1599,9 @@
     </footer>
     <footer class="footer-bar py-3">
         <div class="container text-center">
-            <p class="mb-0 text-muted" style="font-size: 0.875rem;">© <script>document.write(new Date().getFullYear())</script> Chaitanya Krishna Anantharapu. All rights reserved.</p>
+            <p class="mb-0 footer-copyright">
+                &copy; <script>document.write(new Date().getFullYear())</script> Chaitanya Krishna Anantharapu. All rights reserved.
+            </p>
         </div>
     </footer>
     <!-- Footer End -->
@@ -512,6 +1620,132 @@
     <script src="js/feather.min.js"></script>
     <!-- Main Js -->
     <script src="js/app.js"></script>
+
+    <!-- Theme Toggle -->
+    <script>
+        (function() {
+            var toggle = document.getElementById('theme-toggle');
+            if (!toggle) return;
+
+            function applyTheme(theme) {
+                if (theme === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                } else {
+                    document.documentElement.removeAttribute('data-theme');
+                }
+                localStorage.setItem('theme', theme);
+                // Update meta theme-color
+                var meta = document.querySelector('meta[name="theme-color"]');
+                if (meta) meta.setAttribute('content', theme === 'light' ? '#f8f8f8' : '#0a0a0a');
+            }
+
+            toggle.addEventListener('click', function() {
+                var current = localStorage.getItem('theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                applyTheme(next);
+                // Re-render feather icons so the toggle icon updates
+                if (typeof feather !== 'undefined') feather.replace();
+            });
+        })();
+    </script>
+
+    <!-- Auto-calculate years of experience from Sep 2012 -->
+    <script>
+        (function() {
+            var start = new Date(2012, 8); // Sep 2012 (month is 0-indexed)
+            var now = new Date();
+            var years = now.getFullYear() - start.getFullYear();
+            if (now.getMonth() < start.getMonth()) years--;
+            document.querySelectorAll('.exp-years').forEach(function(el) {
+                el.textContent = years;
+            });
+        })();
+    </script>
+
+    <!-- Blog posts data (single source of truth — update here to update landing page) -->
+    <script type="application/json" id="landing-posts-json">[
+        {
+            "slug": "soc-automation-playbooks",
+            "title": "SOC Automation: Building Playbooks That Actually Work",
+            "published": "2026-02-15",
+            "tags": ["Automation", "SOC"],
+            "summary": "Most SOAR playbooks fail because they automate the wrong things. Here\u2019s a framework for building ones that stick."
+        },
+        {
+            "slug": "importance-of-osint",
+            "title": "The Importance of OSINT in Modern Cybersecurity",
+            "published": "2026-01-17",
+            "tags": ["OSINT", "Threat Intelligence"],
+            "summary": "OSINT is a discipline that turns public information into security decisions. Practical workflows, validation, ethics, and defensive automation snippets."
+        },
+        {
+            "slug": "detection-engineering-lessons",
+            "title": "Detection Engineering: 5 Lessons From Building 500+ Rules",
+            "published": "2025-12-10",
+            "tags": ["Detection", "Blue Team"],
+            "summary": "What I\u2019ve learned writing detection rules across Sentinel, Splunk, and Elastic \u2014 and why most detection content fails in production."
+        }
+    ]</script>
+
+    <!-- Auto-render blog posts on landing page -->
+    <script>
+        (function() {
+            var container = document.getElementById('blog-posts-container');
+            if (!container) return;
+
+            var dataEl = document.getElementById('landing-posts-json');
+            if (!dataEl) return;
+
+            var posts;
+            try { posts = JSON.parse(dataEl.textContent); } catch(e) { return; }
+
+            // Show up to 3 latest posts
+            var latest = posts.slice(0, 3);
+
+            function formatDate(iso) {
+                if (!iso) return '';
+                try {
+                    var d = new Date(iso);
+                    if (isNaN(d.getTime())) return iso;
+                    return d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+                } catch(e) { return iso; }
+            }
+
+            function escapeHtml(text) {
+                var div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            latest.forEach(function(post, i) {
+                var num = String(i + 1).padStart(2, '0');
+                var link = document.createElement('a');
+                link.href = 'blog.html?post=' + encodeURIComponent(post.slug);
+                link.className = 'blog-post-row';
+
+                var tagsHtml = '';
+                if (post.tags && post.tags.length) {
+                    post.tags.forEach(function(tag) {
+                        tagsHtml += '<span class="blog-tag">' + escapeHtml(tag) + '</span>';
+                    });
+                }
+
+                link.innerHTML =
+                    '<span class="blog-post-num">' + num + '</span>' +
+                    '<div class="blog-post-info">' +
+                        '<div class="blog-post-meta">' +
+                            tagsHtml +
+                            '<span class="exp-badge" style="margin-bottom: 0;">' + escapeHtml(formatDate(post.published)) + '</span>' +
+                        '</div>' +
+                        '<div class="blog-post-title">' + escapeHtml(post.title) + '</div>' +
+                        '<p class="blog-post-summary">' + escapeHtml(post.summary) + '</p>' +
+                    '</div>' +
+                    '<span class="blog-post-arrow">&rarr;</span>';
+
+                container.appendChild(link);
+            });
+        })();
+    </script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ENMNKXPQQS"></script>
