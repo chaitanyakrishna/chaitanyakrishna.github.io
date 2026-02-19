@@ -1,10 +1,1 @@
-[
-  {
-    "slug": "importance-of-osint",
-    "title": "The Importance of OSINT in Modern Cybersecurity",
-    "published": "2025-01-17",
-    "tags": ["OSINT", "Cybersecurity", "Threat Intelligence", "Security Operations"],
-    "summary": "OSINT is a discipline that turns public information into security decisions. This article covers practical workflows, validation, ethics, and defensive examples you can automate.",
-    "file": "blog/posts/importance-of-osint.md"
-  }
-]
+[]
